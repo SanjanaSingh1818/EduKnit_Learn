@@ -37,7 +37,11 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <span className="text-2xl font-bold text-eduBlue-500">Edu<span className="text-eduOrange-500">Knit</span></span>
+            <img 
+              src="/lovable-uploads/78cefeac-5939-4775-8dd3-310cb3f07524.png" 
+              alt="EduKnit Logo" 
+              className="h-10 w-auto"
+            />
           </Link>
 
           {/* Desktop Navigation */}
