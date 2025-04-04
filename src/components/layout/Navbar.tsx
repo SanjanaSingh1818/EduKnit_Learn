@@ -13,7 +13,17 @@ const Navbar = () => {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   const navItems = [
-    { name: "Home", path: "/", dropdown: false },
+    { 
+      name: "Home", 
+      path: "/", 
+      dropdown: true,
+      dropdownItems: [
+        { name: "Overview of EduKnit", path: "/#overview" },
+        { name: "Key Features", path: "/#features" },
+        { name: "Testimonials & Success Stories", path: "/#testimonials" },
+        { name: "Explore Programs", path: "/programs" },
+      ]
+    },
     { name: "About Us", path: "/about", dropdown: false },
     { name: "Programs", path: "/programs", dropdown: true },
     { name: "Community", path: "/community", dropdown: true },
@@ -42,11 +52,24 @@ const Navbar = () => {
                   {item.dropdown && <ChevronDown className="ml-1 h-4 w-4" />}
                 </Link>
                 {item.dropdown && (
-                  <div className="absolute left-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 border dark:border-gray-700">
-                    {/* Dropdown items would go here */}
-                    <Link to="#" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Item 1</Link>
-                    <Link to="#" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Item 2</Link>
-                    <Link to="#" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Item 3</Link>
+                  <div className="absolute left-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 border dark:border-gray-700">
+                    {item.dropdownItems ? (
+                      item.dropdownItems.map((dropdownItem, index) => (
+                        <Link 
+                          key={index} 
+                          to={dropdownItem.path} 
+                          className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        >
+                          {dropdownItem.name}
+                        </Link>
+                      ))
+                    ) : (
+                      <>
+                        <Link to="#" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Item 1</Link>
+                        <Link to="#" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Item 2</Link>
+                        <Link to="#" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Item 3</Link>
+                      </>
+                    )}
                   </div>
                 )}
               </div>
@@ -98,13 +121,33 @@ const Navbar = () => {
         <div className="bg-white dark:bg-gray-900 shadow-lg pt-2 pb-4 animate-fade-in">
           {navItems.map((item) => (
             <div key={item.name}>
-              <Link
-                to={item.path}
-                className="block px-4 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
-                onClick={toggleMenu}
-              >
-                {item.name}
-              </Link>
+              {item.dropdown && item.dropdownItems ? (
+                <>
+                  <div className="block px-4 py-2 text-base font-medium text-gray-700 dark:text-gray-200">
+                    {item.name}
+                  </div>
+                  <div className="pl-6">
+                    {item.dropdownItems.map((dropdownItem, index) => (
+                      <Link
+                        key={index}
+                        to={dropdownItem.path}
+                        className="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+                        onClick={toggleMenu}
+                      >
+                        {dropdownItem.name}
+                      </Link>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <Link
+                  to={item.path}
+                  className="block px-4 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  onClick={toggleMenu}
+                >
+                  {item.name}
+                </Link>
+              )}
             </div>
           ))}
           
