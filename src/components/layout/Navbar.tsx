@@ -21,7 +21,7 @@ const Navbar = () => {
         { name: "Overview of EduKnit", path: "/#overview" },
         { name: "Key Features", path: "/#features" },
         { name: "Testimonials & Success Stories", path: "/#testimonials" },
-        { name: "Explore Programs", path: "/programs" },
+        { name: "Explore Programs", path: "/#programs" },
       ]
     },
     { name: "About Us", path: "/about", dropdown: false },

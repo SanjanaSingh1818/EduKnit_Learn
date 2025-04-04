@@ -6,21 +6,27 @@ import FeaturesSection from '@/components/home/FeaturesSection';
 import PopularCoursesSection from '@/components/home/PopularCoursesSection';
 import TestimonialsSection from '@/components/home/TestimonialsSection';
 import CtaSection from '@/components/home/CtaSection';
+import OverviewSection from '@/components/home/OverviewSection';
 
 const Index = () => {
   return (
     <Layout>
       <div id="overview">
         <HeroSection />
+        <OverviewSection />
       </div>
       <div id="features">
         <FeaturesSection />
       </div>
-      <PopularCoursesSection />
+      <div id="programs">
+        <PopularCoursesSection />
+      </div>
       <div id="testimonials">
         <TestimonialsSection />
       </div>
-      <CtaSection />
+      <div id="cta">
+        <CtaSection />
+      </div>
     </Layout>
   );
 };
