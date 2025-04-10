@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -65,16 +64,16 @@ export default {
 				},
 				// EduKnit custom colors
 				eduBlue: {
-					50: '#e6f1ff',
-					100: '#cce3ff',
-					200: '#99c8ff',
-					300: '#66acff',
-					400: '#3391ff',
-					500: '#0075FF', // Primary blue
-					600: '#005ecb',
-					700: '#004798',
-					800: '#003064',
-					900: '#001832',
+					50: '#E6F2FF',   // Lighter blue
+					100: '#B3DBFF',  // Light blue
+					200: '#80C4FF',  // Soft blue
+					300: '#4DADFF',  // Bright blue
+					400: '#1A96FF',  // Vibrant blue
+					500: '#0075FF',  // Primary blue (matching logo)
+					600: '#005ECB',  // Darker blue
+					700: '#004798',  // Deep blue
+					800: '#003064',  // Navy blue
+					900: '#001832',  // Very dark blue
 				},
 				eduOrange: {
 					50: '#fff0e6',
