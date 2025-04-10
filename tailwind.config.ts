@@ -64,28 +64,28 @@ export default {
 				},
 				// EduKnit custom colors
 				eduBlue: {
-					50: '#E6F2FF',   // Lighter blue
-					100: '#B3DBFF',  // Light blue
-					200: '#80C4FF',  // Soft blue
-					300: '#4DADFF',  // Bright blue
-					400: '#1A96FF',  // Vibrant blue
-					500: '#0075FF',  // Primary blue (matching logo)
-					600: '#005ECB',  // Darker blue
-					700: '#004798',  // Deep blue
-					800: '#003064',  // Navy blue
-					900: '#001832',  // Very dark blue
+					50: '#E6F4FF',
+					100: '#B3D7FF',
+					200: '#80BBFF',
+					300: '#4D9EFF',
+					400: '#1A82FF',
+					500: '#112C55', // Updating primary blue to match specified color
+					600: '#0E2444',
+					700: '#0A1B33',
+					800: '#071222',
+					900: '#040A11'
 				},
 				eduOrange: {
-					50: '#fff0e6',
-					100: '#ffe1cc',
-					200: '#ffc399',
-					300: '#ffa566',
-					400: '#ff8733',
-					500: '#FF6900', // Primary orange
-					600: '#cc5400',
-					700: '#993f00',
-					800: '#662a00',
-					900: '#331500',
+					50: '#FFF3E6',
+					100: '#FFE0CC',
+					200: '#FFCC99',
+					300: '#FFB866',
+					400: '#FFA533',
+					500: '#F47920', // Updating primary orange to match specified color
+					600: '#C35F1A',
+					700: '#924713',
+					800: '#612F0D',
+					900: '#311806'
 				}
 			},
 			borderRadius: {
