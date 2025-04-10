@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -11,6 +10,16 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
+  
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    if (isOpen) {
+      setIsOpen(false);
+    }
+  };
 
   const navItems = [
     { 
@@ -21,25 +30,25 @@ const Navbar = () => {
       dropdownItems: [
         { 
           name: "Overview of EduKnit", 
-          path: "/#overview",
+          path: "overview",
           icon: Layout,
           description: "Learn about our mission and vision"
         },
         { 
           name: "Key Features", 
-          path: "/#features",
+          path: "features",
           icon: Layout,
           description: "Discover what makes our platform unique"
         },
         { 
           name: "Testimonials & Success Stories", 
-          path: "/#testimonials",
+          path: "testimonials",
           icon: Users,
           description: "Read about our students' experiences"
         },
         { 
           name: "Explore Programs", 
-          path: "/#programs",
+          path: "programs",
           icon: BookOpen,
           description: "Browse our diverse range of courses"
         },
@@ -56,7 +65,6 @@ const Navbar = () => {
     <nav className="bg-white dark:bg-gray-900 sticky top-0 z-50 shadow-sm">
       <div className="edu-container">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <img 
               src="/lovable-uploads/78cefeac-5939-4775-8dd3-310cb3f07524.png" 
@@ -65,51 +73,60 @@ const Navbar = () => {
             />
           </Link>
 
-          {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-4 items-center">
             {navItems.map((item) => (
               <div key={item.name} className="relative group">
-                <Link 
-                  to={item.path} 
-                  className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-eduBlue-500 dark:hover:text-eduBlue-400 transition-colors duration-200 flex items-center"
-                >
-                  {item.name}
-                  {item.dropdown && <ChevronDown className="ml-1 h-4 w-4" />}
-                </Link>
-                {item.dropdown && item.dropdownItems && (
-                  <div className="absolute left-0 mt-2 w-72 bg-white dark:bg-gray-800 rounded-md shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 border dark:border-gray-700">
-                    {item.name === "Home" ? (
-                      <div className="grid grid-cols-1 gap-1 p-2">
-                        {item.dropdownItems.map((dropdownItem, index) => (
-                          <Link 
-                            key={index} 
-                            to={dropdownItem.path} 
-                            className="flex items-start space-x-3 p-3 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition-colors duration-200"
-                          >
-                            <div className="flex-shrink-0 mt-1">
-                              {dropdownItem.icon && <dropdownItem.icon className="h-5 w-5 text-eduBlue-500" />}
-                            </div>
-                            <div>
-                              <p className="font-medium text-gray-800 dark:text-gray-100">{dropdownItem.name}</p>
-                              <p className="text-sm text-gray-600 dark:text-gray-400">{dropdownItem.description}</p>
-                            </div>
-                          </Link>
-                        ))}
+                {item.dropdown ? (
+                  <>
+                    <button 
+                      className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-eduBlue-500 dark:hover:text-eduBlue-400 transition-colors duration-200 flex items-center"
+                      aria-haspopup="true"
+                    >
+                      {item.name}
+                      <ChevronDown className="ml-1 h-4 w-4" />
+                    </button>
+                    {item.dropdownItems && (
+                      <div className="absolute left-0 mt-2 w-72 bg-white dark:bg-gray-800 rounded-md shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 border dark:border-gray-700">
+                        {item.name === "Home" ? (
+                          <div className="grid grid-cols-1 gap-1 p-2">
+                            {item.dropdownItems.map((dropdownItem, index) => (
+                              <button 
+                                key={index} 
+                                onClick={() => scrollToSection(dropdownItem.path)}
+                                className="flex items-start space-x-3 p-3 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition-colors duration-200 w-full text-left"
+                              >
+                                <div className="flex-shrink-0 mt-1">
+                                  {dropdownItem.icon && <dropdownItem.icon className="h-5 w-5 text-eduOrange-500" />}
+                                </div>
+                                <div>
+                                  <p className="font-medium text-gray-800 dark:text-gray-100">{dropdownItem.name}</p>
+                                  <p className="text-sm text-gray-600 dark:text-gray-400">{dropdownItem.description}</p>
+                                </div>
+                              </button>
+                            ))}
+                          </div>
+                        ) : (
+                          <>
+                            <Link to="#" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Item 1</Link>
+                            <Link to="#" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Item 2</Link>
+                            <Link to="#" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Item 3</Link>
+                          </>
+                        )}
                       </div>
-                    ) : (
-                      <>
-                        <Link to="#" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Item 1</Link>
-                        <Link to="#" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Item 2</Link>
-                        <Link to="#" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Item 3</Link>
-                      </>
                     )}
-                  </div>
+                  </>
+                ) : (
+                  <Link 
+                    to={item.path} 
+                    className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-eduBlue-500 dark:hover:text-eduBlue-400 transition-colors duration-200"
+                  >
+                    {item.name}
+                  </Link>
                 )}
               </div>
             ))}
           </div>
 
-          {/* User Authentication */}
           <div className="hidden md:flex items-center space-x-4">
             {isLoggedIn ? (
               <div className="flex items-center space-x-4">
@@ -136,7 +153,6 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Mobile menu button */}
           <div className="md:hidden">
             <button
               onClick={toggleMenu}
@@ -149,7 +165,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile menu */}
       <div className={cn("md:hidden", isOpen ? "block" : "hidden")}>
         <div className="bg-white dark:bg-gray-900 shadow-lg pt-2 pb-4 animate-fade-in">
           {navItems.map((item) => (
@@ -160,18 +175,17 @@ const Navbar = () => {
                     {item.name}
                   </div>
                   <div className="pl-6">
-                    {item.dropdownItems.map((dropdownItem, index) => (
-                      <Link
+                    {item.name === "Home" && item.dropdownItems.map((dropdownItem, index) => (
+                      <button
                         key={index}
-                        to={dropdownItem.path}
-                        className="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
-                        onClick={toggleMenu}
+                        onClick={() => scrollToSection(dropdownItem.path)}
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
                       >
                         <div className="flex items-center space-x-2">
-                          {dropdownItem.icon && <dropdownItem.icon className="h-4 w-4 text-eduBlue-500" />}
+                          {dropdownItem.icon && <dropdownItem.icon className="h-4 w-4 text-eduOrange-500" />}
                           <span>{dropdownItem.name}</span>
                         </div>
-                      </Link>
+                      </button>
                     ))}
                   </div>
                 </>

@@ -9,6 +9,20 @@ import CtaSection from '@/components/home/CtaSection';
 import OverviewSection from '@/components/home/OverviewSection';
 
 const Index = () => {
+  // Scroll to section on mount if URL has a hash
+  React.useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const id = hash.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, []);
+
   return (
     <Layout>
       <div id="overview">

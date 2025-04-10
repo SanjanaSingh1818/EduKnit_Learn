@@ -23,7 +23,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
   image,
 }) => {
   return (
-    <Card className="overflow-hidden transition-all duration-300 hover:shadow-lg flex flex-col h-full">
+    <Card className="overflow-hidden transition-all duration-300 hover:shadow-lg flex flex-col h-full border border-gray-200">
       <CardContent className="p-6 flex flex-col h-full">
         <div className="mb-4 flex">
           {Array.from({ length: 5 }).map((_, index) => (
