@@ -1,87 +1,113 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
 import SectionHeader from '../ui/SectionHeader';
-import CourseCard from '../ui/CourseCard';
-import { Button } from '@/components/ui/button';
+import { Button } from '../ui/button';
+import { Card, CardContent, CardFooter } from '../ui/card';
+import { Code, Database, Palette, ChartBar, Globe, Lightbulb, MessageSquare, Briefcase } from 'lucide-react';
 
-// Sample course data
-const courses = [
+const programs = [
   {
-    id: "1",
     title: "Web Development Bootcamp",
-    description: "Master HTML, CSS, JavaScript, React and Node.js in this comprehensive bootcamp designed for beginners.",
-    imageUrl: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8Y29kaW5nfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
-    instructor: "John Smith",
+    description: "Master HTML, CSS, JavaScript, React, and Node.js to build modern, responsive web applications from scratch.",
+    level: "Beginner to Advanced",
     duration: "12 weeks",
-    studentsCount: 1534,
-    rating: 4.8,
-    category: "Technology",
-    price: 12999,
-    isFeatured: true
+    icon: Code,
+    color: "eduBlue"
   },
   {
-    id: "2",
-    title: "Digital Marketing Fundamentals",
-    description: "Learn SEO, SEM, social media marketing, and content strategy to grow your business online.",
-    imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fG1hcmtldGluZ3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
-    instructor: "Emily Johnson",
-    duration: "8 weeks",
-    studentsCount: 2156,
-    rating: 4.7,
-    category: "Business",
-    price: 8999,
-    isFeatured: false
-  },
-  {
-    id: "3",
-    title: "Public Speaking Mastery",
-    description: "Overcome stage fright and develop compelling presentation skills for professional success.",
-    imageUrl: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHB1YmxpYyUyMHNwZWFraW5nfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
-    instructor: "David Chen",
-    duration: "6 weeks",
-    studentsCount: 1289,
-    rating: 4.9,
-    category: "Communication",
-    price: 6999,
-    isFeatured: false
-  },
-  {
-    id: "4",
     title: "Data Science Essentials",
-    description: "Learn Python, statistics, data analysis, and machine learning for a career in data science.",
-    imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8ZGF0YSUyMHNjaWVuY2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60",
-    instructor: "Sarah Williams",
+    description: "Learn Python, statistics, machine learning, and data visualization to analyze complex datasets and extract valuable insights.",
+    level: "Intermediate",
+    duration: "16 weeks",
+    icon: Database,
+    color: "eduOrange"
+  },
+  {
+    title: "UI/UX Design Fundamentals",
+    description: "Develop your design thinking, wireframing, prototyping, and user testing skills to create intuitive, beautiful interfaces.",
+    level: "Beginner",
+    duration: "8 weeks",
+    icon: Palette,
+    color: "eduBlue"
+  },
+  {
+    title: "Business Analytics",
+    description: "Learn to use data analytics tools like Excel, SQL, Tableau, and Power BI to drive business decisions and strategy.",
+    level: "Beginner to Intermediate",
     duration: "10 weeks",
-    studentsCount: 1876,
-    rating: 4.6,
-    category: "Technology",
-    price: 14999,
-    isFeatured: false
+    icon: ChartBar,
+    color: "eduOrange"
+  },
+  {
+    title: "Digital Marketing Mastery",
+    description: "Explore SEO, social media marketing, content strategy, email campaigns, and analytics to grow online presence.",
+    level: "All Levels",
+    duration: "8 weeks",
+    icon: Globe,
+    color: "eduBlue"
+  },
+  {
+    title: "Product Management",
+    description: "Develop skills in market research, product strategy, roadmapping, and stakeholder management for successful product launches.",
+    level: "Intermediate",
+    duration: "12 weeks",
+    icon: Lightbulb,
+    color: "eduOrange"
+  },
+  {
+    title: "Communication Skills",
+    description: "Enhance your public speaking, presentation, writing, and interpersonal communication for professional success.",
+    level: "All Levels",
+    duration: "6 weeks",
+    icon: MessageSquare,
+    color: "eduBlue"
+  },
+  {
+    title: "Project Management Professional",
+    description: "Prepare for PMP certification while mastering project planning, execution, monitoring, and team leadership.",
+    level: "Advanced",
+    duration: "14 weeks",
+    icon: Briefcase,
+    color: "eduOrange"
   }
 ];
 
 const PopularCoursesSection = () => {
   return (
-    <section className="section-padding">
+    <section className="section-padding bg-white dark:bg-gray-900">
       <div className="edu-container">
         <SectionHeader 
-          title="Popular Courses" 
-          subtitle="Explore our most sought-after courses chosen by thousands of students"
+          title="Explore Our Programs" 
+          subtitle="Discover courses designed to help you achieve your career goals"
         />
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-          {courses.map(course => (
-            <CourseCard key={course.id} {...course} />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
+          {programs.map((program, index) => (
+            <Card key={index} className="overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300 flex flex-col h-full">
+              <div className={`h-2 ${program.color === "eduBlue" ? "bg-eduBlue-500" : "bg-eduOrange-500"}`}></div>
+              <CardContent className="p-6 flex-grow">
+                <div className="flex items-center mb-4">
+                  <div className={`p-2 rounded-lg mr-3 ${program.color === "eduBlue" ? "bg-eduBlue-100 text-eduBlue-600 dark:bg-eduBlue-900 dark:text-eduBlue-300" : "bg-eduOrange-100 text-eduOrange-600 dark:bg-eduOrange-900 dark:text-eduOrange-300"}`}>
+                    {React.createElement(program.icon, { className: "h-5 w-5" })}
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{program.title}</h3>
+                </div>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">{program.description}</p>
+                <div className="flex justify-between items-center text-sm text-gray-500 dark:text-gray-400">
+                  <span>{program.level}</span>
+                  <span>{program.duration}</span>
+                </div>
+              </CardContent>
+              <CardFooter className="p-6 pt-0 border-t border-gray-100 dark:border-gray-800">
+                <Button className="w-full bg-eduBlue-500 hover:bg-eduBlue-600 text-white">Learn More</Button>
+              </CardFooter>
+            </Card>
           ))}
         </div>
         
-        <div className="text-center">
-          <Button asChild>
-            <Link to="/programs" className="flex items-center justify-center">
-              View All Courses <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
+        <div className="mt-12 text-center">
+          <Button className="bg-eduOrange-500 hover:bg-eduOrange-600 text-white px-8 py-6 text-lg">
+            View All Programs
           </Button>
         </div>
       </div>

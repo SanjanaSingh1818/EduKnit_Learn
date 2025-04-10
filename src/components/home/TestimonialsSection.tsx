@@ -11,6 +11,7 @@ const testimonials = [
     content: "The Web Development Bootcamp transformed my career. I went from knowing basic HTML to building full-stack applications in just 12 weeks. The instructors were incredibly supportive and the community is amazing.",
     rating: 5,
     program: "Web Development Bootcamp",
+    image: "https://images.unsplash.com/photo-1534751516642-a1af1ef26a56?q=80&w=200&h=200&auto=format&fit=crop"
   },
   {
     name: "Rajesh Patel",
@@ -19,6 +20,7 @@ const testimonials = [
     content: "EduKnit's Digital Marketing course provided practical knowledge I could immediately apply to my job. Within two months of completing the program, I was able to increase our company's online engagement by 45%.",
     rating: 5,
     program: "Digital Marketing Fundamentals",
+    image: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=200&h=200&auto=format&fit=crop"
   },
   {
     name: "Anika Gupta",
@@ -26,6 +28,7 @@ const testimonials = [
     content: "The Communication Skills program helped me overcome my fear of public speaking. Now I confidently lead team meetings and client presentations. This course was truly life-changing for my professional growth.",
     rating: 4,
     program: "Public Speaking Mastery",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&h=200&auto=format&fit=crop"
   },
   {
     name: "Vikram Singh",
@@ -34,6 +37,7 @@ const testimonials = [
     content: "As someone transitioning careers, the Data Science Essentials course gave me exactly what I needed. The curriculum was comprehensive and the hands-on projects prepared me for real-world challenges.",
     rating: 5,
     program: "Data Science Essentials",
+    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=200&h=200&auto=format&fit=crop"
   }
 ];
 

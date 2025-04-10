@@ -1,72 +1,80 @@
 
 import React from 'react';
 import SectionHeader from '../ui/SectionHeader';
-import { Book, Users, Award, MessageSquare, Globe, Lightbulb, Clock, ShieldCheck } from 'lucide-react';
+import { Card, CardContent } from '../ui/card';
+import { Laptop, Book, Users, MessageSquare, Award, Clock, Globe, BookOpen } from 'lucide-react';
 
 const features = [
   {
-    icon: <Book className="h-8 w-8 text-eduBlue-500" />,
-    title: "Expert-Led Curriculum",
-    description: "Learn from industry professionals with courses designed to develop in-demand skills."
+    title: "Personalized Learning Paths",
+    description: "Customize your education journey with AI-driven recommendations tailored to your goals, skill level, and learning style.",
+    icon: Laptop,
+    color: "eduBlue"
   },
   {
-    icon: <Users className="h-8 w-8 text-eduBlue-500" />,
-    title: "Engaged Community",
-    description: "Join a thriving community of learners, mentors, and educators to enhance your learning experience."
+    title: "Expert Mentorship",
+    description: "Connect with industry professionals who provide personalized guidance, feedback, and career advice to accelerate your growth.",
+    icon: Users,
+    color: "eduOrange"
   },
   {
-    icon: <Clock className="h-8 w-8 text-eduBlue-500" />,
-    title: "Flexible Learning",
-    description: "Study at your own pace with courses designed to fit around your schedule and commitments."
+    title: "Project-Based Learning",
+    description: "Apply your knowledge to real-world projects that build your portfolio and demonstrate your skills to potential employers.",
+    icon: Book,
+    color: "eduBlue"
   },
   {
-    icon: <MessageSquare className="h-8 w-8 text-eduBlue-500" />,
-    title: "Discussion Forums",
-    description: "Collaborate with peers and instructors through active discussion forums and live Q&A sessions."
+    title: "Community Support",
+    description: "Join a vibrant network of peers, alumni, and mentors who collaborate, share insights, and motivate each other to succeed.",
+    icon: MessageSquare,
+    color: "eduOrange"
   },
   {
-    icon: <Award className="h-8 w-8 text-eduBlue-500" />,
-    title: "Recognized Certifications",
-    description: "Earn industry-recognized credentials that boost your resume and career prospects."
+    title: "Industry-Recognized Certifications",
+    description: "Earn credentials that validate your expertise and are respected by leading companies across the globe.",
+    icon: Award,
+    color: "eduBlue"
   },
   {
-    icon: <Globe className="h-8 w-8 text-eduBlue-500" />,
-    title: "Global Perspective",
-    description: "Gain international insights and connect with learners from around the world."
+    title: "Flexible Learning Schedule",
+    description: "Learn at your own pace with on-demand content, allowing you to balance education with your personal and professional commitments.",
+    icon: Clock,
+    color: "eduOrange"
   },
   {
-    icon: <Lightbulb className="h-8 w-8 text-eduBlue-500" />,
-    title: "Practical Projects",
-    description: "Apply your knowledge through hands-on projects that demonstrate your skills to employers."
+    title: "Global Access",
+    description: "Access quality education from anywhere in the world, eliminating geographical barriers to career advancement.",
+    icon: Globe,
+    color: "eduBlue"
   },
   {
-    icon: <ShieldCheck className="h-8 w-8 text-eduBlue-500" />,
-    title: "Dedicated Support",
-    description: "Access technical and academic support whenever you need assistance on your learning journey."
+    title: "Comprehensive Curriculum",
+    description: "Master both technical skills and soft skills with our well-rounded programs designed for holistic professional development.",
+    icon: BookOpen,
+    color: "eduOrange"
   }
 ];
 
 const FeaturesSection = () => {
   return (
-    <section className="section-padding bg-gray-50 dark:bg-gray-900">
+    <section className="section-padding bg-gray-50 dark:bg-gray-800">
       <div className="edu-container">
-        <SectionHeader
-          title="Why Choose EduKnit"
-          subtitle="Discover the key features that make our platform the perfect choice for your educational journey"
+        <SectionHeader 
+          title="Key Features" 
+          subtitle="Discover what makes EduKnit the preferred choice for learners worldwide"
         />
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
           {features.map((feature, index) => (
-            <div
-              key={index}
-              className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 dark:border-gray-700 flex flex-col"
-            >
-              <div className="mb-4 p-3 bg-gray-50 dark:bg-gray-700 inline-block rounded-lg self-start">
-                {feature.icon}
-              </div>
-              <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-              <p className="text-gray-600 dark:text-gray-300">{feature.description}</p>
-            </div>
+            <Card key={index} className="border-t-4 border-t-eduBlue-500 hover:shadow-lg transition-shadow duration-300 h-full">
+              <CardContent className="p-6 flex flex-col h-full">
+                <div className={`mb-4 p-3 rounded-full w-14 h-14 flex items-center justify-center ${feature.color === "eduBlue" ? "bg-eduBlue-100 text-eduBlue-600" : "bg-eduOrange-100 text-eduOrange-600"}`}>
+                  {React.createElement(feature.icon, { className: "h-7 w-7" })}
+                </div>
+                <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-white">{feature.title}</h3>
+                <p className="text-gray-600 dark:text-gray-400 flex-grow">{feature.description}</p>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </div>
