@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, Home, Layout, Users, BookOpen } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const Navbar = () => {
@@ -17,11 +17,32 @@ const Navbar = () => {
       name: "Home", 
       path: "/", 
       dropdown: true,
+      icon: Home,
       dropdownItems: [
-        { name: "Overview of EduKnit", path: "/#overview" },
-        { name: "Key Features", path: "/#features" },
-        { name: "Testimonials & Success Stories", path: "/#testimonials" },
-        { name: "Explore Programs", path: "/#programs" },
+        { 
+          name: "Overview of EduKnit", 
+          path: "/#overview",
+          icon: Layout,
+          description: "Learn about our mission and vision"
+        },
+        { 
+          name: "Key Features", 
+          path: "/#features",
+          icon: Layout,
+          description: "Discover what makes our platform unique"
+        },
+        { 
+          name: "Testimonials & Success Stories", 
+          path: "/#testimonials",
+          icon: Users,
+          description: "Read about our students' experiences"
+        },
+        { 
+          name: "Explore Programs", 
+          path: "/#programs",
+          icon: BookOpen,
+          description: "Browse our diverse range of courses"
+        },
       ]
     },
     { name: "About Us", path: "/about", dropdown: false },
@@ -55,18 +76,26 @@ const Navbar = () => {
                   {item.name}
                   {item.dropdown && <ChevronDown className="ml-1 h-4 w-4" />}
                 </Link>
-                {item.dropdown && (
-                  <div className="absolute left-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 border dark:border-gray-700">
-                    {item.dropdownItems ? (
-                      item.dropdownItems.map((dropdownItem, index) => (
-                        <Link 
-                          key={index} 
-                          to={dropdownItem.path} 
-                          className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                        >
-                          {dropdownItem.name}
-                        </Link>
-                      ))
+                {item.dropdown && item.dropdownItems && (
+                  <div className="absolute left-0 mt-2 w-72 bg-white dark:bg-gray-800 rounded-md shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 border dark:border-gray-700">
+                    {item.name === "Home" ? (
+                      <div className="grid grid-cols-1 gap-1 p-2">
+                        {item.dropdownItems.map((dropdownItem, index) => (
+                          <Link 
+                            key={index} 
+                            to={dropdownItem.path} 
+                            className="flex items-start space-x-3 p-3 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition-colors duration-200"
+                          >
+                            <div className="flex-shrink-0 mt-1">
+                              {dropdownItem.icon && <dropdownItem.icon className="h-5 w-5 text-eduBlue-500" />}
+                            </div>
+                            <div>
+                              <p className="font-medium text-gray-800 dark:text-gray-100">{dropdownItem.name}</p>
+                              <p className="text-sm text-gray-600 dark:text-gray-400">{dropdownItem.description}</p>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
                     ) : (
                       <>
                         <Link to="#" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Item 1</Link>
@@ -138,7 +167,10 @@ const Navbar = () => {
                         className="block px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
                         onClick={toggleMenu}
                       >
-                        {dropdownItem.name}
+                        <div className="flex items-center space-x-2">
+                          {dropdownItem.icon && <dropdownItem.icon className="h-4 w-4 text-eduBlue-500" />}
+                          <span>{dropdownItem.name}</span>
+                        </div>
                       </Link>
                     ))}
                   </div>
