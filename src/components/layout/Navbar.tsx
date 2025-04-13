@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -53,10 +54,10 @@ const Navbar = () => {
 
   return (
     <nav className="bg-white dark:bg-gray-900 sticky top-0 z-50 shadow-sm">
-      <div className="edu-container">
-        <div className="flex items-center justify-between h-16">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center">
             <img 
               src="/lovable-uploads/78cefeac-5939-4775-8dd3-310cb3f07524.png" 
               alt="EduKnit Logo" 
@@ -65,18 +66,18 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-4 items-center">
+          <div className="hidden md:flex items-center space-x-2">
             {navItems.map((item) => (
               <div key={item.name} className="relative group">
                 <Link 
                   to={item.path} 
-                  className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-eduBlue-500 dark:hover:text-eduBlue-400 transition-colors duration-200 flex items-center"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-eduBlue-500 dark:hover:text-eduBlue-400 transition-colors duration-200 flex items-center"
                 >
                   {item.name}
                   {item.dropdown && <ChevronDown className="ml-1 h-4 w-4" />}
                 </Link>
                 {item.dropdown && item.dropdownItems && (
-                  <div className="absolute left-0 mt-2 w-72 bg-white dark:bg-gray-800 rounded-md shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 border dark:border-gray-700">
+                  <div className="absolute left-0 mt-1 w-72 bg-white dark:bg-gray-800 rounded-md shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 border dark:border-gray-700">
                     {item.name === "Home" ? (
                       <div className="grid grid-cols-1 gap-1 p-2">
                         {item.dropdownItems.map((dropdownItem, index) => (
@@ -109,7 +110,7 @@ const Navbar = () => {
           </div>
 
           {/* User Authentication */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-3">
             {isLoggedIn ? (
               <div className="flex items-center space-x-4">
                 <Link to="/dashboard" className="text-gray-700 dark:text-gray-200 hover:text-eduBlue-500 dark:hover:text-eduBlue-400">
@@ -128,9 +129,9 @@ const Navbar = () => {
                 </div>
               </div>
             ) : (
-              <div className="flex items-center space-x-4">
-                <Button variant="outline" onClick={() => setIsLoggedIn(true)}>Login</Button>
-                <Button className="bg-eduBlue-500 hover:bg-eduBlue-600">Sign Up</Button>
+              <div className="flex items-center space-x-3">
+                <Button variant="outline" onClick={() => setIsLoggedIn(true)} className="text-eduBlue-500 border-eduBlue-500 hover:bg-eduBlue-50">Login</Button>
+                <Button className="bg-eduOrange-500 hover:bg-eduOrange-600 text-white">Sign Up</Button>
               </div>
             )}
           </div>
@@ -214,12 +215,12 @@ const Navbar = () => {
               <div className="space-y-2">
                 <Button 
                   variant="outline" 
-                  className="w-full justify-center" 
+                  className="w-full justify-center text-eduBlue-500 border-eduBlue-500 hover:bg-eduBlue-50" 
                   onClick={() => {setIsLoggedIn(true); toggleMenu();}}
                 >
                   Login
                 </Button>
-                <Button className="w-full justify-center bg-eduBlue-500 hover:bg-eduBlue-600">Sign Up</Button>
+                <Button className="w-full justify-center bg-eduOrange-500 hover:bg-eduOrange-600 text-white">Sign Up</Button>
               </div>
             )}
           </div>
