@@ -47,7 +47,7 @@ const CtaSection = () => {
                 </Link>
               </Button>
               <Button size="lg" variant="outline" className="bg-white/10 hover:bg-white/20 border-white text-white" asChild>
-                <Link to="/signup">Sign Up for Free</Link>
+                <Link to="/student-dashboard">Register</Link>
               </Button>
             </div>
           </div>

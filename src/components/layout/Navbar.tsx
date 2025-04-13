@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Menu, X, ChevronDown, Home, Layout, Users, BookOpen } from 'lucide-react';
@@ -9,8 +8,14 @@ import { cn } from '@/lib/utils';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  const handleRegister = () => {
+    setIsLoggedIn(true);
+    navigate('/student-dashboard');
+  };
 
   const navItems = [
     { 
@@ -113,7 +118,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-3">
             {isLoggedIn ? (
               <div className="flex items-center space-x-4">
-                <Link to="/dashboard" className="text-gray-700 dark:text-gray-200 hover:text-eduBlue-500 dark:hover:text-eduBlue-400">
+                <Link to="/student-dashboard" className="text-gray-700 dark:text-gray-200 hover:text-eduBlue-500 dark:hover:text-eduBlue-400">
                   Dashboard
                 </Link>
                 <div className="relative group">
@@ -131,7 +136,7 @@ const Navbar = () => {
             ) : (
               <div className="flex items-center space-x-3">
                 <Button variant="outline" onClick={() => setIsLoggedIn(true)} className="text-eduBlue-500 border-eduBlue-500 hover:bg-eduBlue-50">Login</Button>
-                <Button className="bg-eduOrange-500 hover:bg-eduOrange-600 text-white">Sign Up</Button>
+                <Button onClick={handleRegister} className="bg-eduOrange-500 hover:bg-eduOrange-600 text-white">Register</Button>
               </div>
             )}
           </div>
@@ -191,7 +196,7 @@ const Navbar = () => {
             {isLoggedIn ? (
               <div className="space-y-2">
                 <Link 
-                  to="/dashboard" 
+                  to="/student-dashboard" 
                   className="block py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:text-eduBlue-500 dark:hover:text-eduBlue-400"
                   onClick={toggleMenu}
                 >
@@ -220,7 +225,12 @@ const Navbar = () => {
                 >
                   Login
                 </Button>
-                <Button className="w-full justify-center bg-eduOrange-500 hover:bg-eduOrange-600 text-white">Sign Up</Button>
+                <Button 
+                  className="w-full justify-center bg-eduOrange-500 hover:bg-eduOrange-600 text-white"
+                  onClick={() => {handleRegister(); toggleMenu();}}
+                >
+                  Register
+                </Button>
               </div>
             )}
           </div>
