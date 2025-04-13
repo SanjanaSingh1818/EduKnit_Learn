@@ -11,22 +11,12 @@ import OverviewSection from '@/components/home/OverviewSection';
 const Index = () => {
   return (
     <Layout>
-      <div id="overview">
-        <HeroSection />
-        <OverviewSection />
-      </div>
-      <div id="features">
-        <FeaturesSection />
-      </div>
-      <div id="programs">
-        <PopularCoursesSection />
-      </div>
-      <div id="testimonials">
-        <TestimonialsSection />
-      </div>
-      <div id="cta">
-        <CtaSection />
-      </div>
+      <HeroSection />
+      <OverviewSection />
+      <FeaturesSection />
+      <PopularCoursesSection />
+      <TestimonialsSection />
+      <CtaSection />
     </Layout>
   );
 };

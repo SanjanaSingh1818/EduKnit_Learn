@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -21,25 +20,25 @@ const Navbar = () => {
       dropdownItems: [
         { 
           name: "Overview of EduKnit", 
-          path: "/#overview",
+          path: "/overview",
           icon: Layout,
           description: "Learn about our mission and vision"
         },
         { 
           name: "Key Features", 
-          path: "/#features",
+          path: "/features",
           icon: Layout,
           description: "Discover what makes our platform unique"
         },
         { 
           name: "Testimonials & Success Stories", 
-          path: "/#testimonials",
+          path: "/testimonials",
           icon: Users,
           description: "Read about our students' experiences"
         },
         { 
           name: "Explore Programs", 
-          path: "/#programs",
+          path: "/programs",
           icon: BookOpen,
           description: "Browse our diverse range of courses"
         },
