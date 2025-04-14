@@ -53,6 +53,7 @@ const Navbar = () => {
     { name: "About Us", path: "/about", dropdown: false },
     { name: "Programs", path: "/programs", dropdown: true },
     { name: "Community", path: "/community", dropdown: true },
+    { name: "Chat", path: "/chat", dropdown: false },
     { name: "Blog", path: "/blog", dropdown: false },
     { name: "Support", path: "/support", dropdown: false },
   ];
