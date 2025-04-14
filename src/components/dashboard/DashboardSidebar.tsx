@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { 
   LayoutDashboard, 
@@ -17,6 +17,17 @@ import {
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+
+// Try to import the useAuth hook but don't fail if it's not available
+let useAuth: any = () => ({ user: null });
+try {
+  const authModule = require('@/contexts/AuthContext');
+  if (authModule && authModule.useAuth) {
+    useAuth = authModule.useAuth;
+  }
+} catch (error) {
+  console.log('Auth context not available, using fallback');
+}
 
 interface SidebarLinkProps {
   to: string;
@@ -48,7 +59,21 @@ interface DashboardSidebarProps {
 
 const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className }) => {
   const location = useLocation();
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  
+  // Try to get user data from auth context, fallback to default values if not available
+  let user = null;
+  let handleSignOut = () => {
+    console.log('Sign out not implemented');
+  };
+  
+  try {
+    const auth = useAuth();
+    user = auth?.user;
+    handleSignOut = auth?.signOut || handleSignOut;
+  } catch (error) {
+    console.log('Error accessing auth context:', error);
+  }
   
   const links = [
     { to: '/student-dashboard', icon: LayoutDashboard, label: 'Dashboard' },
@@ -106,11 +131,17 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className }) => {
         <div className="p-4 border-b border-gray-200 dark:border-gray-800 flex items-center space-x-3">
           <Avatar className="h-10 w-10">
             <AvatarImage src="https://i.pravatar.cc/150?img=32" alt="User" />
-            <AvatarFallback>JD</AvatarFallback>
+            <AvatarFallback>
+              {user?.name ? user.name.charAt(0) : 'U'}
+            </AvatarFallback>
           </Avatar>
           <div className="flex flex-col">
-            <span className="font-medium text-gray-900 dark:text-white">Jane Doe</span>
-            <span className="text-sm text-gray-500 dark:text-gray-400">jane.doe@example.com</span>
+            <span className="font-medium text-gray-900 dark:text-white">
+              {user?.name || 'Guest User'}
+            </span>
+            <span className="text-sm text-gray-500 dark:text-gray-400">
+              {user?.email || 'Sign in to access all features'}
+            </span>
           </div>
         </div>
         
@@ -138,6 +169,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className }) => {
           <Button 
             variant="ghost" 
             className="w-full justify-start gap-3 font-normal h-10 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/20 dark:hover:text-red-400"
+            onClick={handleSignOut}
           >
             <LogOut className="h-4 w-4 text-gray-500" />
             Sign Out

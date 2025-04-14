@@ -1,3 +1,4 @@
+
 import React from 'react';
 import DashboardLayout from '@/components/dashboard/DashboardLayout';
 import DashboardOverviewCards from '@/components/dashboard/overview/DashboardOverviewCards';
@@ -7,8 +8,8 @@ import DashboardCalendar from '@/components/dashboard/calendar/DashboardCalendar
 import StatisticsCards from '@/components/dashboard/statistics/StatisticsCards';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Book, FileText, Play, BarChart } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Book, FileText, Play, BarChart, Video } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Award, CalendarIcon, Clock } from 'lucide-react';
 
