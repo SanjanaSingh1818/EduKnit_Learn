@@ -7,8 +7,8 @@ import DashboardCalendar from '@/components/dashboard/calendar/DashboardCalendar
 import StatisticsCards from '@/components/dashboard/statistics/StatisticsCards';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Book, FileText, Play, BarChart } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Book, FileText, Play, BarChart, Video } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Award, CalendarIcon, Clock } from 'lucide-react';
 
@@ -35,7 +35,7 @@ const StudentDashboardPage = () => {
       progress: 32,
       instructor: 'Prof. Michael Chen',
       nextLesson: 'Statistical Analysis with Python',
-      image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80',
+      image: 'https://images.unsplash.com/photo-1518770660439-46a2a5aee158?auto=format&fit=crop&w=600&q=80',
       status: 'In Progress',
       lastAccessed: '5 days ago',
       nextSessionDate: '2025-04-20T10:00:00',
