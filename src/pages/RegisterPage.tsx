@@ -1,10 +1,10 @@
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { Eye, EyeOff, Mail, User } from 'lucide-react';
-import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 
 import Layout from '@/components/layout/Layout';
@@ -35,7 +35,6 @@ const RegisterPage = () => {
   const [showPassword, setShowPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
   const navigate = useNavigate();
-  const { signUp } = useAuth();
   const { toast } = useToast();
   
   const form = useForm<RegisterFormValues>({
@@ -49,12 +48,17 @@ const RegisterPage = () => {
   });
 
   const onSubmit = async (data: RegisterFormValues) => {
-    try {
-      await signUp(data.email, data.password);
-      navigate('/login');
-    } catch (error) {
-      console.error('Registration error:', error);
-    }
+    // This will be connected to Supabase after integration
+    console.log('Registration data:', data);
+    
+    toast({
+      title: "Account created!",
+      description: "Please check your email to verify your account.",
+    });
+    
+    // Temporarily navigate to login after registration
+    // In a real implementation, we would wait for email verification
+    setTimeout(() => navigate('/login'), 2000);
   };
 
   return (
