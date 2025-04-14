@@ -1,31 +1,18 @@
-
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import DashboardLayout from '@/components/dashboard/DashboardLayout';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
+import DashboardOverviewCards from '@/components/dashboard/overview/DashboardOverviewCards';
+import CourseList from '@/components/dashboard/courses/CourseList';
+import NotificationList from '@/components/dashboard/notifications/NotificationList';
+import DashboardCalendar from '@/components/dashboard/calendar/DashboardCalendar';
+import StatisticsCards from '@/components/dashboard/statistics/StatisticsCards';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Book, FileText, Play, BarChart } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Calendar } from '@/components/ui/calendar';
-import {
-  BarChart,
-  Book,
-  BookOpen,
-  Calendar as CalendarIcon,
-  Clock,
-  GraduationCap,
-  Play,
-  Video,
-  Award,
-  FileText,
-  ArrowRight,
-  CheckCircle2,
-  AlertCircle
-} from 'lucide-react';
+import { Award, CalendarIcon, Clock } from 'lucide-react';
 
 const StudentDashboardPage = () => {
-  const navigate = useNavigate();
   const [date, setDate] = React.useState<Date | undefined>(new Date());
   
   // Mock data for student dashboard
@@ -135,19 +122,6 @@ const StudentDashboardPage = () => {
     }
   ];
 
-  const renderStatusBadge = (status: string) => {
-    switch (status) {
-      case 'In Progress':
-        return <Badge className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300">{status}</Badge>;
-      case 'Almost Complete':
-        return <Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">{status}</Badge>;
-      case 'Completed':
-        return <Badge className="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300">{status}</Badge>;
-      default:
-        return <Badge variant="outline">{status}</Badge>;
-    }
-  };
-
   const renderPriorityBadge = (priority: string) => {
     switch (priority) {
       case 'High':
@@ -158,18 +132,6 @@ const StudentDashboardPage = () => {
         return <Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">{priority}</Badge>;
       default:
         return <Badge variant="outline">{priority}</Badge>;
-    }
-  };
-
-  const renderNotificationIcon = (type: string) => {
-    switch (type) {
-      case 'success':
-        return <CheckCircle2 className="h-8 w-8 text-green-500" />;
-      case 'warning':
-        return <AlertCircle className="h-8 w-8 text-yellow-500" />;
-      case 'info':
-      default:
-        return <FileText className="h-8 w-8 text-blue-500" />;
     }
   };
 
@@ -190,62 +152,12 @@ const StudentDashboardPage = () => {
           <p className="text-gray-600 dark:text-gray-300">Welcome back! Track your progress and manage your learning journey.</p>
         </div>
 
-        {/* Dashboard Overview Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-lg">Enrolled Courses</CardTitle>
-              <CardDescription>Your active learning paths</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center justify-center text-4xl font-bold text-eduBlue-600 dark:text-eduBlue-400">
-                <GraduationCap className="mr-2 h-8 w-8 text-eduBlue-500" />
-                {enrolledCourses.length}
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-lg">Overall Progress</CardTitle>
-              <CardDescription>Your learning journey</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">62% Complete</span>
-                </div>
-                <Progress value={62} className="h-2 bg-gray-200 dark:bg-gray-700" />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-lg">Upcoming Deadlines</CardTitle>
-              <CardDescription>Tasks requiring attention</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center justify-center text-4xl font-bold text-eduOrange-600 dark:text-eduOrange-400">
-                <CalendarIcon className="mr-2 h-8 w-8 text-eduOrange-500" />
-                {upcomingDeadlines.length}
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-lg">Live Sessions Today</CardTitle>
-              <CardDescription>Interactive learning</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center justify-center text-4xl font-bold text-purple-600 dark:text-purple-400">
-                <Video className="mr-2 h-8 w-8 text-purple-500" />
-                {liveSessionsToday.length}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+        {/* Overview Cards */}
+        <DashboardOverviewCards
+          enrolledCourses={enrolledCourses}
+          upcomingDeadlines={upcomingDeadlines}
+          liveSessionsToday={liveSessionsToday}
+        />
 
         {/* Course Content */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -260,83 +172,7 @@ const StudentDashboardPage = () => {
               </TabsList>
               
               <TabsContent value="my-courses" className="space-y-6">
-                <div className="grid grid-cols-1 gap-6">
-                  {enrolledCourses.map(course => (
-                    <Card key={course.id} className="overflow-hidden transition-all duration-300 hover:shadow-md">
-                      <div className="flex flex-col md:flex-row">
-                        <div className="md:w-1/3 h-48 md:h-auto bg-gray-200 dark:bg-gray-700 relative">
-                          <img src={course.image} alt={course.title} className="w-full h-full object-cover" />
-                          <div className="absolute top-2 left-2">
-                            {renderStatusBadge(course.status)}
-                          </div>
-                        </div>
-                        <div className="flex flex-col flex-1">
-                          <CardHeader>
-                            <div className="flex justify-between items-start">
-                              <div>
-                                <CardTitle className="text-xl mb-1">{course.title}</CardTitle>
-                                <CardDescription className="text-sm">{course.instructor}</CardDescription>
-                              </div>
-                              <div className="text-right text-sm text-gray-500 dark:text-gray-400">
-                                Last accessed: {course.lastAccessed}
-                              </div>
-                            </div>
-                          </CardHeader>
-                          <CardContent className="pb-2 flex-grow">
-                            <div className="space-y-4">
-                              <div>
-                                <div className="flex items-center justify-between mb-1">
-                                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                                    {course.progress}% Complete
-                                  </span>
-                                </div>
-                                <Progress 
-                                  value={course.progress} 
-                                  className="h-2 bg-gray-200 dark:bg-gray-700" 
-                                />
-                              </div>
-                              <div className="flex items-start space-x-2">
-                                <BookOpen className="h-5 w-5 text-eduBlue-500 flex-shrink-0 mt-0.5" />
-                                <div>
-                                  <p className="text-sm font-medium">Next Lesson:</p>
-                                  <p className="text-sm text-gray-600 dark:text-gray-400">{course.nextLesson}</p>
-                                </div>
-                              </div>
-                              {course.nextSessionDate && (
-                                <div className="flex items-start space-x-2">
-                                  <Video className="h-5 w-5 text-eduOrange-500 flex-shrink-0 mt-0.5" />
-                                  <div>
-                                    <p className="text-sm font-medium">Next Live Session:</p>
-                                    <p className="text-sm text-gray-600 dark:text-gray-400">
-                                      {formatDate(course.nextSessionDate)}
-                                    </p>
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                          </CardContent>
-                          <CardFooter className="flex justify-between gap-2 pt-0">
-                            <Button 
-                              className="flex-1 bg-eduBlue-500 hover:bg-eduBlue-600"
-                            >
-                              <BookOpen className="mr-2 h-4 w-4" /> Continue Learning
-                            </Button>
-                            {course.zoomLink && (
-                              <Button
-                                variant="outline"
-                                className="flex-1 border-eduOrange-500 text-eduOrange-500 hover:bg-eduOrange-50 dark:hover:bg-eduOrange-900/20"
-                                onClick={() => window.open(course.zoomLink, '_blank')}
-                              >
-                                <Video className="mr-2 h-4 w-4" /> Join Live Session
-                              </Button>
-                            )}
-                          </CardFooter>
-                        </div>
-                      </div>
-                    </Card>
-                  ))}
-                </div>
-
+                <CourseList courses={enrolledCourses} />
                 <Button 
                   variant="ghost" 
                   className="w-full border border-dashed border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400"
@@ -436,121 +272,13 @@ const StudentDashboardPage = () => {
               </TabsContent>
             </Tabs>
             
-            {/* Statistics Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-lg">Weekly Learning Activity</CardTitle>
-                  <CardDescription>Hours spent learning</CardDescription>
-                </CardHeader>
-                <CardContent className="pt-4">
-                  <div className="h-48 flex items-end justify-between px-2">
-                    {/* Simple bar chart visualization */}
-                    {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day, i) => {
-                      const heights = ['40%', '65%', '35%', '80%', '55%', '20%', '30%'];
-                      return (
-                        <div key={day} className="flex flex-col items-center">
-                          <div 
-                            className="w-8 bg-eduBlue-500 dark:bg-eduBlue-600 rounded-t-md transition-all duration-500 ease-in-out" 
-                            style={{ height: heights[i] }}
-                          ></div>
-                          <span className="text-xs mt-2 text-gray-600 dark:text-gray-400">{day}</span>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-lg">Course Progress</CardTitle>
-                  <CardDescription>Completion status by subject</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div>
-                      <div className="flex justify-between mb-1">
-                        <span className="text-sm text-gray-700 dark:text-gray-300">Web Development</span>
-                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">65%</span>
-                      </div>
-                      <Progress value={65} className="h-2" />
-                    </div>
-                    <div>
-                      <div className="flex justify-between mb-1">
-                        <span className="text-sm text-gray-700 dark:text-gray-300">Data Science</span>
-                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">32%</span>
-                      </div>
-                      <Progress value={32} className="h-2" />
-                    </div>
-                    <div>
-                      <div className="flex justify-between mb-1">
-                        <span className="text-sm text-gray-700 dark:text-gray-300">Digital Marketing</span>
-                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">89%</span>
-                      </div>
-                      <Progress value={89} className="h-2" />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+            <StatisticsCards />
           </div>
           
           {/* Right column - Calendar and Notifications */}
           <div className="space-y-6">
-            {/* Calendar Card */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Calendar</CardTitle>
-                <CardDescription>Schedule and deadlines</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Calendar
-                  mode="single"
-                  selected={date}
-                  onSelect={setDate}
-                  className="rounded-md border"
-                />
-              </CardContent>
-              <CardFooter>
-                <Button 
-                  variant="outline" 
-                  className="w-full text-eduBlue-500" 
-                  onClick={() => window.open('https://calendar.google.com', '_blank')}
-                >
-                  <CalendarIcon className="mr-2 h-4 w-4" /> Open Google Calendar
-                </Button>
-              </CardFooter>
-            </Card>
-            
-            {/* Notifications */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Notifications</CardTitle>
-                <CardDescription>Latest updates</CardDescription>
-              </CardHeader>
-              <CardContent className="pb-2">
-                <div className="space-y-4">
-                  {notifications.map(notification => (
-                    <div key={notification.id} className="flex gap-3 p-3 border border-gray-100 dark:border-gray-800 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
-                      <div className="flex-shrink-0">
-                        {renderNotificationIcon(notification.type)}
-                      </div>
-                      <div className="space-y-1">
-                        <h4 className="text-sm font-medium">{notification.title}</h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">{notification.message}</p>
-                        <p className="text-xs text-gray-500">{notification.time}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button variant="ghost" className="w-full text-gray-600 dark:text-gray-400">
-                  View All Notifications
-                </Button>
-              </CardFooter>
-            </Card>
+            <DashboardCalendar date={date} onSelect={setDate} />
+            <NotificationList notifications={notifications} />
             
             {/* Quick Links */}
             <Card>
