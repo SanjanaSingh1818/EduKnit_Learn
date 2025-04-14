@@ -1,10 +1,10 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { Eye, EyeOff, Mail } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 
 import Layout from '@/components/layout/Layout';
@@ -30,6 +30,7 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 const LoginPage = () => {
   const [showPassword, setShowPassword] = React.useState(false);
   const navigate = useNavigate();
+  const { signIn } = useAuth();
   const { toast } = useToast();
   
   const form = useForm<LoginFormValues>({
@@ -42,16 +43,12 @@ const LoginPage = () => {
   });
 
   const onSubmit = async (data: LoginFormValues) => {
-    // This will be connected to Supabase after integration
-    console.log('Login data:', data);
-    
-    toast({
-      title: "Login successful!",
-      description: "Welcome back to EduKnit.",
-    });
-    
-    // Navigate to dashboard after login
-    setTimeout(() => navigate('/student-dashboard'), 1000);
+    try {
+      await signIn(data.email, data.password);
+      navigate('/student-dashboard');
+    } catch (error) {
+      console.error('Login error:', error);
+    }
   };
 
   return (

@@ -1,6 +1,6 @@
-
 import React from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
 import { 
   LayoutDashboard, 
   GraduationCap, 
@@ -48,7 +48,9 @@ interface DashboardSidebarProps {
 
 const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = React.useState(false);
+  const { signOut } = useAuth();
   
   const links = [
     { to: '/student-dashboard', icon: LayoutDashboard, label: 'Dashboard' },
@@ -63,9 +65,13 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className }) => {
     setIsOpen(!isOpen);
   };
   
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/login');
+  };
+  
   return (
     <>
-      {/* Mobile sidebar toggle */}
       <div className="fixed z-50 bottom-4 right-4 md:hidden">
         <Button 
           onClick={toggleSidebar} 
@@ -76,7 +82,6 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className }) => {
         </Button>
       </div>
       
-      {/* Sidebar overlay for mobile */}
       {isOpen && (
         <div 
           className="fixed inset-0 bg-black/50 z-40 md:hidden"
@@ -84,13 +89,11 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className }) => {
         />
       )}
       
-      {/* Sidebar */}
       <div className={cn(
         "flex flex-col bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 h-screen w-64 fixed left-0 top-0 z-40 transition-transform duration-300 ease-in-out",
         isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0",
         className
       )}>
-        {/* Logo and header */}
         <div className="p-4 border-b border-gray-200 dark:border-gray-800">
           <Link to="/" className="flex items-center gap-2">
             <img 
@@ -102,7 +105,6 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className }) => {
           </Link>
         </div>
         
-        {/* User profile */}
         <div className="p-4 border-b border-gray-200 dark:border-gray-800 flex items-center space-x-3">
           <Avatar className="h-10 w-10">
             <AvatarImage src="https://i.pravatar.cc/150?img=32" alt="User" />
@@ -114,7 +116,6 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className }) => {
           </div>
         </div>
         
-        {/* Navigation links */}
         <div className="flex-1 overflow-y-auto p-3 space-y-1">
           {links.map((link) => (
             <SidebarLink 
@@ -127,7 +128,6 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className }) => {
           ))}
         </div>
         
-        {/* Account menu */}
         <div className="p-3 border-t border-gray-200 dark:border-gray-800 space-y-1">
           <SidebarLink 
             to="/student-dashboard/settings"
@@ -138,6 +138,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className }) => {
           <Button 
             variant="ghost" 
             className="w-full justify-start gap-3 font-normal h-10 hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/20 dark:hover:text-red-400"
+            onClick={handleSignOut}
           >
             <LogOut className="h-4 w-4 text-gray-500" />
             Sign Out
