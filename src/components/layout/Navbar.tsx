@@ -1,8 +1,9 @@
+
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Menu, X, ChevronDown, Home, Layout, Users, BookOpen } from 'lucide-react';
+import { Menu, X, ChevronDown, Home, Layout, Users, BookOpen, Discord } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const Navbar = () => {
@@ -113,6 +114,18 @@ const Navbar = () => {
                 )}
               </div>
             ))}
+            
+            {/* Discord Community Link */}
+            <a 
+              href="https://discord.gg/your-invite-link" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-eduBlue-500 dark:hover:text-eduBlue-400 transition-colors duration-200 flex items-center gap-2"
+              aria-label="Join our Discord community"
+            >
+              <Discord className="h-5 w-5" />
+              <span className="hidden lg:inline">Community</span>
+            </a>
           </div>
 
           {/* User Authentication */}
@@ -192,6 +205,18 @@ const Navbar = () => {
               )}
             </div>
           ))}
+          
+          {/* Discord Community Link in Mobile Menu */}
+          <a
+            href="https://discord.gg/your-invite-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center px-4 py-2 text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
+            onClick={toggleMenu}
+          >
+            <Discord className="h-5 w-5 mr-2" />
+            Community
+          </a>
           
           <div className="mt-4 px-4 py-2 border-t border-gray-200 dark:border-gray-700">
             {isLoggedIn ? (
