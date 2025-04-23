@@ -3,7 +3,7 @@ import React from 'react';
 import Layout from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { LampDash, Brain, Megaphone, Bot, Database, Flask, GraduationCap, Users } from 'lucide-react';
+import { Lightbulb, Brain, Megaphone, Bot, Database, FlaskConical, GraduationCap, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const programs = [
@@ -46,14 +46,14 @@ const programs = [
     title: "BioSkills",
     description: "Get beyond textbooks. Build industry-relevant biology skills.",
     features: ["Applied biology thinking", "Case-based learning", "Career paths in biosciences"],
-    icon: Flask,
+    icon: FlaskConical,
     gradient: "from-eduOrange-100 to-eduOrange-50"
   },
   {
     title: "Decision-Making Skills",
     description: "Learn how top leaders think.",
     features: ["Critical thinking", "Problem solving", "Real-life decision simulations"],
-    icon: LampDash,
+    icon: Lightbulb,
     gradient: "from-eduBlue-100 to-eduBlue-50"
   },
   {
