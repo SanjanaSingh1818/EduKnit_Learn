@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Menu, X, ChevronDown, Home, Layout, Users, BookOpen, MessageCircle } from 'lucide-react';
+import { Menu, X, ChevronDown, Home, Layout, Users, BookOpen, MessageCircle, Megaphone, Brain, Bot, Database, FlaskConical, Lightbulb } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const Navbar = () => {
@@ -51,7 +51,56 @@ const Navbar = () => {
       ]
     },
     { name: "About Us", path: "/about", dropdown: false },
-    { name: "Programs", path: "/programs", dropdown: true },
+    { 
+      name: "Programs", 
+      path: "/programs", 
+      dropdown: true,
+      icon: BookOpen,
+      dropdownItems: [
+        { 
+          name: "Communication Skills", 
+          path: "/programs/communication-skills",
+          icon: Users,
+          description: "Master communication and presentation skills"
+        },
+        { 
+          name: "Digital Marketing", 
+          path: "/programs/digital-marketing",
+          icon: Megaphone,
+          description: "Learn digital marketing and growth strategies"
+        },
+        { 
+          name: "Basics of AI", 
+          path: "/programs/basics-of-ai",
+          icon: Brain,
+          description: "Understand AI fundamentals and applications"
+        },
+        { 
+          name: "AI Prompt Crafting", 
+          path: "/programs/ai-prompt-crafting",
+          icon: Bot,
+          description: "Master AI tools and prompt engineering"
+        },
+        { 
+          name: "Data Analytics", 
+          path: "/programs/data-analytics",
+          icon: Database,
+          description: "Learn data analysis and visualization"
+        },
+        { 
+          name: "BioSkills", 
+          path: "/programs/bioskills",
+          icon: FlaskConical,
+          description: "Develop practical biology skills"
+        },
+        { 
+          name: "Decision-Making Skills", 
+          path: "/programs/decision-making",
+          icon: Lightbulb,
+          description: "Master critical thinking and problem solving"
+        }
+      ]
+    },
     { name: "Community", path: "/community", dropdown: true },
     { name: "Chat", path: "/chat", dropdown: false },
     { name: "Blog", path: "/blog", dropdown: false },

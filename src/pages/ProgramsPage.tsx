@@ -1,5 +1,5 @@
-
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -12,49 +12,56 @@ const programs = [
     description: "Speak smart. Think sharp. Lead with confidence.",
     features: ["Personality development", "Interview & GD training", "Presentation & corporate etiquette"],
     icon: Users,
-    gradient: "from-eduBlue-100 to-eduBlue-50"
+    gradient: "from-eduBlue-100 to-eduBlue-50",
+    path: "/programs/communication-skills"
   },
   {
     title: "Digital Marketing",
     description: "Learn how businesses grow in the real world — and how you can, too.",
     features: ["Social media strategy", "Performance marketing", "Branding & campaign planning"],
     icon: Megaphone,
-    gradient: "from-eduOrange-100 to-eduOrange-50"
+    gradient: "from-eduOrange-100 to-eduOrange-50",
+    path: "/programs/digital-marketing"
   },
   {
     title: "Basics of AI",
     description: "AI is not just the future — it's your future.",
     features: ["Machine learning concepts", "AI in real life", "Ethical and practical AI use"],
     icon: Brain,
-    gradient: "from-eduBlue-100 to-eduBlue-50"
+    gradient: "from-eduBlue-100 to-eduBlue-50",
+    path: "/programs/basics-of-ai"
   },
   {
     title: "AI Prompt Crafting",
     description: "Don't just use ChatGPT — command it like a pro.",
     features: ["Prompt engineering", "AI + human collaboration", "Hands-on mini-projects"],
     icon: Bot,
-    gradient: "from-eduOrange-100 to-eduOrange-50"
+    gradient: "from-eduOrange-100 to-eduOrange-50",
+    path: "/programs/ai-prompt-crafting"
   },
   {
     title: "Data Analytics",
     description: "Make decisions like a CEO — with data.",
     features: ["Excel, Sheets & visualization tools", "Industry use-cases", "Intro to Python for analysis"],
     icon: Database,
-    gradient: "from-eduBlue-100 to-eduBlue-50"
+    gradient: "from-eduBlue-100 to-eduBlue-50",
+    path: "/programs/data-analytics"
   },
   {
     title: "BioSkills",
     description: "Get beyond textbooks. Build industry-relevant biology skills.",
     features: ["Applied biology thinking", "Case-based learning", "Career paths in biosciences"],
     icon: FlaskConical,
-    gradient: "from-eduOrange-100 to-eduOrange-50"
+    gradient: "from-eduOrange-100 to-eduOrange-50",
+    path: "/programs/bioskills"
   },
   {
     title: "Decision-Making Skills",
     description: "Learn how top leaders think.",
     features: ["Critical thinking", "Problem solving", "Real-life decision simulations"],
     icon: Lightbulb,
-    gradient: "from-eduBlue-100 to-eduBlue-50"
+    gradient: "from-eduBlue-100 to-eduBlue-50",
+    path: "/programs/decision-making"
   },
   {
     title: "Job Search Program",
@@ -145,8 +152,11 @@ const ProgramsPage = () => {
                           : "bg-eduOrange-500 hover:bg-eduOrange-600"
                       )}
                       disabled={program.comingSoon}
+                      asChild
                     >
-                      {program.comingSoon ? "Coming Soon" : "Learn More"}
+                      <Link to={program.path || "#"}>
+                        {program.comingSoon ? "Coming Soon" : "Learn More"}
+                      </Link>
                     </Button>
                   </CardContent>
                 </Card>
