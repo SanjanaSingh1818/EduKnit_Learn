@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Menu, X, ChevronDown, Home, Layout, Users, BookOpen, MessageCircle, Megaphone, Brain, Bot, Database, FlaskConical, Lightbulb } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import NavDropdownItem from '../navbar/NavDropdownItem';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -107,6 +108,51 @@ const Navbar = () => {
     { name: "Support", path: "/support", dropdown: false },
   ];
 
+  const programItems = [
+    { 
+      name: "Communication Skills", 
+      path: "/programs/communication-skills",
+      icon: Users,
+      description: "Master communication and presentation skills"
+    },
+    { 
+      name: "Digital Marketing", 
+      path: "/programs/digital-marketing",
+      icon: Megaphone,
+      description: "Learn digital marketing and growth strategies"
+    },
+    { 
+      name: "Basics of AI", 
+      path: "/programs/basics-of-ai",
+      icon: Brain,
+      description: "Understand AI fundamentals and applications"
+    },
+    { 
+      name: "AI Prompt Crafting", 
+      path: "/programs/ai-prompt-crafting",
+      icon: Bot,
+      description: "Master AI tools and prompt engineering"
+    },
+    { 
+      name: "Data Analytics", 
+      path: "/programs/data-analytics",
+      icon: Database,
+      description: "Learn data analysis and visualization"
+    },
+    { 
+      name: "BioSkills", 
+      path: "/programs/bioskills",
+      icon: FlaskConical,
+      description: "Develop practical biology skills"
+    },
+    { 
+      name: "Decision-Making Skills", 
+      path: "/programs/decision-making",
+      icon: Lightbulb,
+      description: "Master critical thinking and problem solving"
+    }
+  ];
+
   return (
     <nav className="bg-white dark:bg-gray-900 sticky top-0 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -129,32 +175,36 @@ const Navbar = () => {
                   {item.name}
                   {item.dropdown && <ChevronDown className="ml-1 h-4 w-4" />}
                 </Link>
-                {item.dropdown && item.dropdownItems && (
-                  <div className="absolute left-0 mt-1 w-72 bg-white dark:bg-gray-800 rounded-md shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 border dark:border-gray-700">
-                    {item.name === "Home" ? (
-                      <div className="grid grid-cols-1 gap-1 p-2">
-                        {item.dropdownItems.map((dropdownItem, index) => (
-                          <Link 
-                            key={index} 
-                            to={dropdownItem.path} 
-                            className="flex items-start space-x-3 p-3 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition-colors duration-200"
-                          >
-                            <div className="flex-shrink-0 mt-1">
-                              {dropdownItem.icon && <dropdownItem.icon className="h-5 w-5 text-eduBlue-500" />}
-                            </div>
-                            <div>
-                              <p className="font-medium text-gray-800 dark:text-gray-100">{dropdownItem.name}</p>
-                              <p className="text-sm text-gray-600 dark:text-gray-400">{dropdownItem.description}</p>
-                            </div>
-                          </Link>
+                {item.dropdown && (
+                  <div className="absolute left-0 mt-1 bg-white dark:bg-gray-800 rounded-md shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 border dark:border-gray-700">
+                    {item.name === "Programs" ? (
+                      <div className="w-72 p-2">
+                        {programItems.map((program, index) => (
+                          <NavDropdownItem
+                            key={index}
+                            icon={program.icon}
+                            title={program.name}
+                            description={program.description}
+                            path={program.path}
+                            onClick={toggleMenu}
+                          />
                         ))}
                       </div>
                     ) : (
-                      <>
-                        <Link to="#" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Item 1</Link>
-                        <Link to="#" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Item 2</Link>
-                        <Link to="#" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Item 3</Link>
-                      </>
+                      item.dropdownItems && (
+                        <div className="grid grid-cols-1 gap-1 p-2">
+                          {item.dropdownItems.map((dropdownItem, index) => (
+                            <NavDropdownItem
+                              key={index}
+                              icon={dropdownItem.icon}
+                              title={dropdownItem.name}
+                              description={dropdownItem.description}
+                              path={dropdownItem.path}
+                              onClick={toggleMenu}
+                            />
+                          ))}
+                        </div>
+                      )
                     )}
                   </div>
                 )}
