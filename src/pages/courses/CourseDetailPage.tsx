@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import DashboardLayout from '@/components/dashboard/DashboardLayout';
@@ -10,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { BookOpen, Calendar, Clock, Play, ArrowLeft, Users, FileText, Check } from 'lucide-react';
+import CourseModule from '@/components/courses/CourseModule';
 
 const CourseDetailPage: React.FC = () => {
   const { courseId } = useParams();
@@ -1083,7 +1083,7 @@ const CourseDetailPage: React.FC = () => {
                               <div className="flex items-center gap-3">
                                 {module.isUnlocked ? (
                                   <>
-                                    <Badge variant={module.progress === 100 ? "success" : "outline"} className={module.progress === 100 ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300" : ""}>
+                                    <Badge variant={module.progress === 100 ? "default" : "outline"} className={module.progress === 100 ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300" : ""}>
                                       {module.progress === 100 ? "Completed" : module.progress > 0 ? "In Progress" : "Not Started"}
                                     </Badge>
                                     <div className="w-24 hidden md:block">
