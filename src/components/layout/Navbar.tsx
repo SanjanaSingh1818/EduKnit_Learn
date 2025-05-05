@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -102,55 +103,9 @@ const Navbar = () => {
         }
       ]
     },
-    { name: "Community", path: "/community", dropdown: true },
     { name: "Chat", path: "/chat", dropdown: false },
     { name: "Blog", path: "/blog", dropdown: false },
     { name: "Support", path: "/support", dropdown: false },
-  ];
-
-  const programItems = [
-    { 
-      name: "Communication Skills", 
-      path: "/programs/communication-skills",
-      icon: Users,
-      description: "Master communication and presentation skills"
-    },
-    { 
-      name: "Digital Marketing", 
-      path: "/programs/digital-marketing",
-      icon: Megaphone,
-      description: "Learn digital marketing and growth strategies"
-    },
-    { 
-      name: "Basics of AI", 
-      path: "/programs/basics-of-ai",
-      icon: Brain,
-      description: "Understand AI fundamentals and applications"
-    },
-    { 
-      name: "AI Prompt Crafting", 
-      path: "/programs/ai-prompt-crafting",
-      icon: Bot,
-      description: "Master AI tools and prompt engineering"
-    },
-    { 
-      name: "Data Analytics", 
-      path: "/programs/data-analytics",
-      icon: Database,
-      description: "Learn data analysis and visualization"
-    },
-    { 
-      name: "BioSkills", 
-      path: "/programs/bioskills",
-      icon: FlaskConical,
-      description: "Develop practical biology skills"
-    },
-    { 
-      name: "Decision-Making Skills", 
-      path: "/programs/decision-making",
-      icon: Lightbulb,
-      description: "Master critical thinking and problem solving"
-    }
   ];
 
   return (
@@ -177,9 +132,22 @@ const Navbar = () => {
                 </Link>
                 {item.dropdown && (
                   <div className="absolute left-0 mt-1 bg-white dark:bg-gray-800 rounded-md shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 border dark:border-gray-700">
-                    {item.name === "Programs" ? (
+                    {item.name === "Home" ? (
+                      <div className="grid grid-cols-1 gap-1 p-2 w-72">
+                        {item.dropdownItems && item.dropdownItems.map((dropdownItem, index) => (
+                          <NavDropdownItem
+                            key={index}
+                            icon={dropdownItem.icon}
+                            title={dropdownItem.name}
+                            description={dropdownItem.description}
+                            path={dropdownItem.path}
+                            onClick={toggleMenu}
+                          />
+                        ))}
+                      </div>
+                    ) : item.name === "Programs" ? (
                       <div className="w-72 p-2">
-                        {programItems.map((program, index) => (
+                        {item.dropdownItems && item.dropdownItems.map((program, index) => (
                           <NavDropdownItem
                             key={index}
                             icon={program.icon}
@@ -191,20 +159,18 @@ const Navbar = () => {
                         ))}
                       </div>
                     ) : (
-                      item.dropdownItems && (
-                        <div className="grid grid-cols-1 gap-1 p-2">
-                          {item.dropdownItems.map((dropdownItem, index) => (
-                            <NavDropdownItem
-                              key={index}
-                              icon={dropdownItem.icon}
-                              title={dropdownItem.name}
-                              description={dropdownItem.description}
-                              path={dropdownItem.path}
-                              onClick={toggleMenu}
-                            />
-                          ))}
-                        </div>
-                      )
+                      <div className="grid grid-cols-1 gap-1 p-2">
+                        {item.dropdownItems && item.dropdownItems.map((dropdownItem, index) => (
+                          <NavDropdownItem
+                            key={index}
+                            icon={dropdownItem.icon}
+                            title={dropdownItem.name}
+                            description={dropdownItem.description}
+                            path={dropdownItem.path}
+                            onClick={toggleMenu}
+                          />
+                        ))}
+                      </div>
                     )}
                   </div>
                 )}
