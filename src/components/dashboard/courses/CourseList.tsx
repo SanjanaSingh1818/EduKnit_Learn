@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
@@ -45,6 +46,12 @@ const formatDate = (dateString: string) => {
 };
 
 const CourseList: React.FC<CourseListProps> = ({ courses }) => {
+  const navigate = useNavigate();
+  
+  const handleContinueLearning = (courseId: number) => {
+    navigate(`/courses/${courseId}`);
+  };
+  
   return (
     <div className="grid grid-cols-1 gap-6">
       {courses.map(course => (
@@ -104,6 +111,7 @@ const CourseList: React.FC<CourseListProps> = ({ courses }) => {
               <CardFooter className="flex justify-between gap-2 pt-0">
                 <Button 
                   className="flex-1 bg-eduBlue-500 hover:bg-eduBlue-600"
+                  onClick={() => handleContinueLearning(course.id)}
                 >
                   <BookOpen className="mr-2 h-4 w-4" /> Continue Learning
                 </Button>
