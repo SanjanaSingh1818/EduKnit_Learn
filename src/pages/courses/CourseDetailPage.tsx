@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import DashboardLayout from '@/components/dashboard/DashboardLayout';
@@ -8,7 +7,7 @@ import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import CourseModule, { Module } from '@/components/courses/CourseModule';
-import { BookOpen, Calendar, Clock, Play, ArrowLeft, Users, FileText } from 'lucide-react';
+import { BookOpen, Calendar, Clock, Play, ArrowLeft, Users, FileText, Check } from 'lucide-react';
 
 const CourseDetailPage: React.FC = () => {
   const { courseId } = useParams();
