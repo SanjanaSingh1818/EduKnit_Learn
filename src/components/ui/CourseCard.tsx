@@ -21,7 +21,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
   className
 }) => {
   return (
-    <Card className={cn("overflow-hidden rounded-xl border-0 shadow-lg", className)}>
+    <Card className={cn("overflow-hidden rounded-3xl border-0 shadow-lg transition-all duration-300 hover:shadow-xl hover:translate-y-[-5px] hover:border-eduBlue-500", className)}>
       <AspectRatio ratio={16/9}>
         <img 
           src={image} 
@@ -30,10 +30,10 @@ const CourseCard: React.FC<CourseCardProps> = ({
         />
       </AspectRatio>
       
-      <div className="bg-white dark:bg-gray-800 p-6">
-        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-5">{title}</h3>
+      <div className="bg-white dark:bg-gray-800 p-6 pb-5 rounded-b-3xl">
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">{title}</h3>
         
-        <div className="flex items-center gap-6 text-gray-600 dark:text-gray-300 text-sm">
+        <div className="flex items-center gap-6 text-gray-500 dark:text-gray-400 text-sm">
           <div className="flex items-center gap-2">
             <Calendar className="h-4 w-4" />
             <span>{duration}</span>

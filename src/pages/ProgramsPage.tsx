@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
 import CourseCard from '@/components/ui/CourseCard';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 
 // Course data including images from placeholder collection
 const courses = [
@@ -99,9 +100,9 @@ const ProgramsPage = () => {
         {/* Programs Grid */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800/50">
           <div className="edu-container">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
               {courses.map((course, index) => (
-                <Link key={index} to={course.path} className="block transform transition hover:scale-105">
+                <Link key={index} to={course.path} className="block transform transition-all duration-300">
                   <CourseCard 
                     title={course.title}
                     image={course.image}
