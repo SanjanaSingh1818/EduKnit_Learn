@@ -1,74 +1,74 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Lightbulb, Brain, Megaphone, Bot, Database, FlaskConical, GraduationCap, Users } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import CourseCard from '@/components/ui/CourseCard';
 
-const programs = [
+// Course data including images from placeholder collection
+const courses = [
   {
     title: "Communication Skills",
-    description: "Speak smart. Think sharp. Lead with confidence.",
-    features: ["Personality development", "Interview & GD training", "Presentation & corporate etiquette"],
-    icon: Users,
-    gradient: "from-eduBlue-100 to-eduBlue-50",
-    path: "/programs/communication-skills"
+    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c",
+    path: "/programs/communication-skills",
+    duration: "1-2 months",
+    timeCommitment: "5-10 hrs/week"
   },
   {
     title: "Digital Marketing",
-    description: "Learn how businesses grow in the real world — and how you can, too.",
-    features: ["Social media strategy", "Performance marketing", "Branding & campaign planning"],
-    icon: Megaphone,
-    gradient: "from-eduOrange-100 to-eduOrange-50",
-    path: "/programs/digital-marketing"
+    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+    path: "/programs/digital-marketing",
+    duration: "2-3 months",
+    timeCommitment: "5-10 hrs/week"
   },
   {
     title: "Basics of AI",
-    description: "AI is not just the future — it's your future.",
-    features: ["Machine learning concepts", "AI in real life", "Ethical and practical AI use"],
-    icon: Brain,
-    gradient: "from-eduBlue-100 to-eduBlue-50",
-    path: "/programs/basics-of-ai"
+    image: "https://images.unsplash.com/photo-1583508915901-b5f84c1dcde1",
+    path: "/programs/basics-of-ai",
+    duration: "1-2 months",
+    timeCommitment: "5-10 hrs/week"
   },
   {
     title: "AI Prompt Crafting",
-    description: "Don't just use ChatGPT — command it like a pro.",
-    features: ["Prompt engineering", "AI + human collaboration", "Hands-on mini-projects"],
-    icon: Bot,
-    gradient: "from-eduOrange-100 to-eduOrange-50",
-    path: "/programs/ai-prompt-crafting"
+    image: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952",
+    path: "/programs/ai-prompt-crafting",
+    duration: "1-2 months",
+    timeCommitment: "5-10 hrs/week"
   },
   {
     title: "Data Analytics",
-    description: "Make decisions like a CEO — with data.",
-    features: ["Excel, Sheets & visualization tools", "Industry use-cases", "Intro to Python for analysis"],
-    icon: Database,
-    gradient: "from-eduBlue-100 to-eduBlue-50",
-    path: "/programs/data-analytics"
+    image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
+    path: "/programs/data-analytics",
+    duration: "2-3 months",
+    timeCommitment: "8-12 hrs/week"
   },
   {
     title: "BioSkills",
-    description: "Get beyond textbooks. Build industry-relevant biology skills.",
-    features: ["Applied biology thinking", "Case-based learning", "Career paths in biosciences"],
-    icon: FlaskConical,
-    gradient: "from-eduOrange-100 to-eduOrange-50",
-    path: "/programs/bioskills"
+    image: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69",
+    path: "/programs/bioskills",
+    duration: "3-4 months",
+    timeCommitment: "5-10 hrs/week"
   },
   {
     title: "Decision-Making Skills",
-    description: "Learn how top leaders think.",
-    features: ["Critical thinking", "Problem solving", "Real-life decision simulations"],
-    icon: Lightbulb,
-    gradient: "from-eduBlue-100 to-eduBlue-50",
-    path: "/programs/decision-making"
+    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4",
+    path: "/programs/decision-making",
+    duration: "1-2 months",
+    timeCommitment: "5-8 hrs/week"
+  },
+  {
+    title: "Mathematics",
+    image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb",
+    path: "/programs/mathematics",
+    duration: "3-4 months",
+    timeCommitment: "6-12 hrs/week"
   },
   {
     title: "Job Search Program",
-    description: "Your step-by-step guide to land internships & jobs.",
-    features: ["Resume & LinkedIn building", "Interview simulations", "Freelancing guidance"],
-    icon: GraduationCap,
-    gradient: "from-eduOrange-100 to-eduOrange-50",
+    image: "https://images.unsplash.com/photo-1483058712412-4245e9b90334",
+    path: "/programs/job-search",
+    duration: "1-2 months",
+    timeCommitment: "3-5 hrs/week",
     comingSoon: true
   }
 ];
@@ -99,67 +99,16 @@ const ProgramsPage = () => {
         {/* Programs Grid */}
         <section className="py-16 bg-gray-50 dark:bg-gray-800/50">
           <div className="edu-container">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {programs.map((program, index) => (
-                <Card 
-                  key={index}
-                  className={cn(
-                    "transform transition-all duration-300 hover:scale-105 overflow-hidden border-0 shadow-lg",
-                    program.comingSoon && "opacity-75"
-                  )}
-                >
-                  <div className={cn("h-2 w-full bg-gradient-to-r", program.gradient)} />
-                  <CardHeader className="space-y-1 pb-4">
-                    <div className="flex items-center space-x-4">
-                      <div className={cn(
-                        "p-2 rounded-lg",
-                        program.gradient.includes("eduBlue") ? "bg-eduBlue-100 text-eduBlue-600" : "bg-eduOrange-100 text-eduOrange-600"
-                      )}>
-                        <program.icon className="h-6 w-6" />
-                      </div>
-                      <div className="flex-1">
-                        <CardTitle className="text-xl font-bold flex items-center gap-2">
-                          {program.title}
-                          {program.comingSoon && (
-                            <span className="text-sm font-normal px-2 py-1 bg-eduOrange-100 text-eduOrange-600 rounded">
-                              Coming Soon
-                            </span>
-                          )}
-                        </CardTitle>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <p className="text-gray-600 dark:text-gray-300">
-                      {program.description}
-                    </p>
-                    <ul className="space-y-2">
-                      {program.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-center text-gray-600 dark:text-gray-300">
-                          <span className={cn(
-                            "mr-2 h-1.5 w-1.5 rounded-full",
-                            program.gradient.includes("eduBlue") ? "bg-eduBlue-500" : "bg-eduOrange-500"
-                          )} />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                    <Button 
-                      className={cn(
-                        "w-full mt-4",
-                        program.gradient.includes("eduBlue") 
-                          ? "bg-eduBlue-500 hover:bg-eduBlue-600" 
-                          : "bg-eduOrange-500 hover:bg-eduOrange-600"
-                      )}
-                      disabled={program.comingSoon}
-                      asChild
-                    >
-                      <Link to={program.path || "#"}>
-                        {program.comingSoon ? "Coming Soon" : "Learn More"}
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {courses.map((course, index) => (
+                <Link key={index} to={course.path} className="block transform transition hover:scale-105">
+                  <CourseCard 
+                    title={course.title}
+                    image={course.image}
+                    duration={course.duration}
+                    timeCommitment={course.timeCommitment}
+                  />
+                </Link>
               ))}
             </div>
           </div>
