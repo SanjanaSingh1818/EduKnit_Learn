@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -6,6 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Menu, X, ChevronDown, Home, Layout, Users, BookOpen, MessageCircle, Megaphone, Brain, Bot, Database, FlaskConical, Lightbulb } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import NavDropdownItem from '../navbar/NavDropdownItem';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
