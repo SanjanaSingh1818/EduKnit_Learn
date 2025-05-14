@@ -135,10 +135,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           data: {
             name,
           },
+          emailRedirectTo: window.location.origin + '/verification',
         },
       });
 
       if (error) throw error;
+      
+      // Store email in localStorage for verification page
+      localStorage.setItem('pendingVerificationEmail', email);
     } catch (error: any) {
       console.error('Sign up error:', error);
       setError(error.message || 'An error occurred during sign up');
@@ -153,6 +157,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const { error } = await supabase.auth.resend({
         type: 'signup',
         email: email,
+        options: {
+          emailRedirectTo: window.location.origin + '/verification',
+        }
       });
       
       if (error) throw error;

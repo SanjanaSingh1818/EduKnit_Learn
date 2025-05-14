@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { AlertCircle, CheckCircle, Loader2, Mail } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 
 const VerificationPage = () => {
   const [verificationState, setVerificationState] = useState<'loading' | 'success' | 'error'>('loading');
@@ -22,10 +23,18 @@ const VerificationPage = () => {
       try {
         // The URL might contain either a regular token or an error message
         const hash = location.hash;
+        const urlParams = new URLSearchParams(location.search);
+        const errorCode = urlParams.get('error');
+        const errorDescription = urlParams.get('error_description');
         
-        if (hash && hash.includes('error=access_denied')) {
+        if (errorCode || hash && hash.includes('error=access_denied')) {
           setVerificationState('error');
-          setErrorMessage('The email verification link is invalid or has expired.');
+          setErrorMessage(errorDescription || 'The email verification link is invalid or has expired.');
+          toast({
+            title: "Verification Failed",
+            description: errorDescription || 'The verification link is invalid or has expired.',
+            variant: "destructive"
+          });
           return;
         }
         
@@ -40,26 +49,48 @@ const VerificationPage = () => {
         
         if (session) {
           setVerificationState('success');
+          toast({
+            title: "Email Verified Successfully",
+            description: "Your account has been verified. You'll be redirected to your dashboard.",
+          });
           
           // If user is verified and logged in, redirect to dashboard
           setTimeout(() => {
             navigate('/student-dashboard');
           }, 3000);
         } else {
-          // No session, but no error in URL either - generic message
-          if (!hash.includes('error')) {
+          // Check if this is a callback from email verification
+          if (location.hash && location.hash.includes('access_token')) {
+            // Try to refresh the session to see if verification completed
+            const { data: { session: refreshedSession }, error } = await supabase.auth.refreshSession();
+            
+            if (refreshedSession) {
+              setVerificationState('success');
+              toast({
+                title: "Email Verified Successfully",
+                description: "Your account has been verified. You can now log in.",
+              });
+              setTimeout(() => {
+                navigate('/login');
+              }, 3000);
+            } else if (error) {
+              setVerificationState('error');
+              setErrorMessage(error.message || 'Failed to verify your email. Please try again.');
+            }
+          } else {
+            // Waiting for verification
             setVerificationState('loading');
           }
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error('Verification error:', error);
         setVerificationState('error');
-        setErrorMessage('An error occurred during email verification.');
+        setErrorMessage(error.message || 'An unexpected error occurred during email verification.');
       }
     };
 
     verifyEmail();
-  }, [location, navigate]);
+  }, [location, navigate, toast]);
 
   const handleResendEmail = async () => {
     if (!email) {
@@ -77,6 +108,9 @@ const VerificationPage = () => {
       const { error } = await supabase.auth.resend({
         type: 'signup',
         email: email,
+        options: {
+          emailRedirectTo: window.location.origin + '/verification',
+        }
       });
       
       if (error) throw error;
@@ -108,9 +142,25 @@ const VerificationPage = () => {
                 Please wait while we verify your email address...
               </CardDescription>
             </CardHeader>
-            <CardContent className="flex justify-center py-8">
+            <CardContent className="flex flex-col items-center py-8 gap-6">
               <Loader2 className="h-16 w-16 animate-spin text-eduBlue-500" />
+              <Alert>
+                <Mail className="h-4 w-4" />
+                <AlertTitle>Check your inbox</AlertTitle>
+                <AlertDescription>
+                  If you haven't received a verification email yet, check your spam folder or request a new link below.
+                </AlertDescription>
+              </Alert>
             </CardContent>
+            <CardFooter className="flex flex-col gap-4">
+              <Button 
+                variant="outline"
+                onClick={() => setVerificationState('error')}
+                className="w-full"
+              >
+                Need a new verification link?
+              </Button>
+            </CardFooter>
           </>
         );
         
