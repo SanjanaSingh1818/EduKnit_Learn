@@ -21,7 +21,6 @@ interface AuthContextType {
   signUp: (email: string, password: string, name?: string) => Promise<void>;
   signOut: () => Promise<void>;
   error: string | null;
-  resendVerificationEmail: (email: string) => Promise<void>;
 }
 
 // Create the context with a default value
@@ -78,13 +77,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 title: "Logged out",
                 description: "You have been logged out successfully.",
               });
-            } else if (event === 'USER_UPDATED') {
-              toast({
-                title: "Profile Updated",
-                description: "Your profile has been updated successfully.",
-              });
-            } else if (event === 'PASSWORD_RECOVERY') {
-              navigate('/reset-password');
             }
           }
         );
@@ -105,7 +97,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     initAuth();
-  }, [toast, navigate]);
+  }, [toast]);
 
   // Sign in function
   const signIn = async (email: string, password: string) => {
@@ -135,47 +127,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           data: {
             name,
           },
-          emailRedirectTo: window.location.origin + '/verification',
         },
       });
 
       if (error) throw error;
-      
-      // Store email in localStorage for verification page
-      localStorage.setItem('pendingVerificationEmail', email);
     } catch (error: any) {
       console.error('Sign up error:', error);
       setError(error.message || 'An error occurred during sign up');
-      throw error;
-    }
-  };
-
-  // Resend verification email
-  const resendVerificationEmail = async (email: string) => {
-    try {
-      setError(null);
-      const { error } = await supabase.auth.resend({
-        type: 'signup',
-        email: email,
-        options: {
-          emailRedirectTo: window.location.origin + '/verification',
-        }
-      });
-      
-      if (error) throw error;
-      
-      toast({
-        title: "Verification Email Sent",
-        description: "Please check your inbox for the verification link.",
-      });
-    } catch (error: any) {
-      console.error('Resend verification email error:', error);
-      setError(error.message || 'Failed to resend verification email');
-      toast({
-        title: "Failed to Send Verification Email",
-        description: error.message || "Please try again later.",
-        variant: "destructive"
-      });
       throw error;
     }
   };
@@ -194,16 +152,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Provide the auth context to child components
   return (
-    <AuthContext.Provider value={{ 
-      user, 
-      session, 
-      loading, 
-      signIn, 
-      signUp, 
-      signOut, 
-      error,
-      resendVerificationEmail
-    }}>
+    <AuthContext.Provider value={{ user, session, loading, signIn, signUp, signOut, error }}>
       {children}
     </AuthContext.Provider>
   );
