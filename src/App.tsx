@@ -16,6 +16,7 @@ import StudentDashboardPage from "./pages/StudentDashboardPage";
 import CourseDetailPage from "./pages/courses/CourseDetailPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import VerificationPage from "./pages/VerificationPage";
 import ChatPage from "./pages/ChatPage";
 import SupportPage from "./pages/SupportPage";
 import CommunicationSkillsPage from "./pages/programs/CommunicationSkillsPage";
@@ -47,6 +48,7 @@ const App = () => (
             <Route path="/chat" element={<ChatPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/verify" element={<VerificationPage />} />
             <Route path="/support" element={<SupportPage />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/programs/communication-skills" element={<CommunicationSkillsPage />} />
