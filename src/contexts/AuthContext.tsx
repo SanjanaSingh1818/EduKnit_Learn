@@ -1,9 +1,12 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
+import { Session, User } from '@supabase/supabase-js';
+import { useToast } from '@/hooks/use-toast';
 
 // Define the shape of the user object
-interface User {
+interface UserData {
   id: string;
   email: string;
   name?: string;
@@ -11,7 +14,8 @@ interface User {
 
 // Define the shape of the AuthContext
 interface AuthContextType {
-  user: User | null;
+  user: UserData | null;
+  session: Session | null;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (email: string, password: string, name?: string) => Promise<void>;
@@ -31,109 +35,124 @@ export const useAuth = () => {
   return context;
 };
 
+// Helper function to extract user data
+const extractUserData = (user: User | null): UserData | null => {
+  if (!user) return null;
+
+  return {
+    id: user.id,
+    email: user.email || '',
+    name: user.user_metadata?.name || user.user_metadata?.full_name || user.email?.split('@')[0]
+  };
+};
+
 // Provider component to wrap the app
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserData | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const { toast } = useToast();
 
-  // Simulating authentication initialization
+  // Set up authentication state listener
   useEffect(() => {
-    // Check for saved auth data in localStorage
-    const savedUser = localStorage.getItem('eduknit_user');
-    
-    if (savedUser) {
+    // Initial session check
+    const initAuth = async () => {
+      setLoading(true);
       try {
-        setUser(JSON.parse(savedUser));
-      } catch (e) {
-        console.error("Error parsing saved user data:", e);
-        localStorage.removeItem('eduknit_user');
+        // First set up the auth state listener
+        const { data: { subscription } } = supabase.auth.onAuthStateChange(
+          (event, currentSession) => {
+            setSession(currentSession);
+            setUser(extractUserData(currentSession?.user || null));
+
+            if (event === 'SIGNED_IN') {
+              toast({
+                title: "Login Successful!",
+                description: "Redirecting to your dashboard... Let's make today count!",
+              });
+            } else if (event === 'SIGNED_OUT') {
+              toast({
+                title: "Logged out",
+                description: "You have been logged out successfully.",
+              });
+            }
+          }
+        );
+
+        // Then check for existing session
+        const { data } = await supabase.auth.getSession();
+        setSession(data.session);
+        setUser(extractUserData(data.session?.user || null));
+        setLoading(false);
+
+        return () => {
+          subscription.unsubscribe();
+        };
+      } catch (error) {
+        console.error('Auth initialization error:', error);
+        setLoading(false);
       }
-    }
-    
-    setLoading(false);
-  }, []);
+    };
+
+    initAuth();
+  }, [toast]);
 
   // Sign in function
   const signIn = async (email: string, password: string) => {
     try {
-      setLoading(true);
       setError(null);
-      
-      // This is a mock implementation - in a real app, we would call Supabase here
-      // For now, we'll just simulate a successful login for demo purposes
-      if (email && password) {
-        const mockUser = {
-          id: 'user-123',
-          email: email,
-          name: email.split('@')[0]
-        };
-        
-        setUser(mockUser);
-        localStorage.setItem('eduknit_user', JSON.stringify(mockUser));
-        navigate('/student-dashboard');
-      } else {
-        throw new Error('Please provide both email and password');
-      }
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) throw error;
     } catch (error: any) {
       console.error('Sign in error:', error);
       setError(error.message || 'An error occurred during sign in');
       throw error;
-    } finally {
-      setLoading(false);
     }
   };
 
   // Sign up function
   const signUp = async (email: string, password: string, name?: string) => {
     try {
-      setLoading(true);
       setError(null);
-      
-      // Mock implementation for demo purposes
-      if (email && password) {
-        const mockUser = {
-          id: 'user-' + Date.now(),
-          email: email,
-          name: name || email.split('@')[0]
-        };
-        
-        setUser(mockUser);
-        localStorage.setItem('eduknit_user', JSON.stringify(mockUser));
-        navigate('/student-dashboard');
-      } else {
-        throw new Error('Please provide email and password');
-      }
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            name,
+          },
+        },
+      });
+
+      if (error) throw error;
     } catch (error: any) {
       console.error('Sign up error:', error);
       setError(error.message || 'An error occurred during sign up');
       throw error;
-    } finally {
-      setLoading(false);
     }
   };
 
   // Sign out function
   const signOut = async () => {
     try {
-      setLoading(true);
-      
-      // Mock implementation
-      localStorage.removeItem('eduknit_user');
-      setUser(null);
-      navigate('/login');
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
     } catch (error: any) {
       console.error('Sign out error:', error);
       setError(error.message || 'An error occurred during sign out');
-    } finally {
-      setLoading(false);
+      throw error;
     }
   };
 
   // Provide the auth context to child components
   return (
-    <AuthContext.Provider value={{ user, loading, signIn, signUp, signOut, error }}>
+    <AuthContext.Provider value={{ user, session, loading, signIn, signUp, signOut, error }}>
       {children}
     </AuthContext.Provider>
   );

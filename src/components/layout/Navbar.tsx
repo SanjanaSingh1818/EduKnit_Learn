@@ -9,14 +9,22 @@ import NavDropdownItem from '../navbar/NavDropdownItem';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
+  const { user, signOut } = useAuth();
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
   const handleRegister = () => {
-    setIsLoggedIn(true);
-    navigate('/student-dashboard');
+    navigate('/register');
+  };
+
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      navigate('/login');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
   };
 
   const navItems = [
@@ -190,7 +198,7 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:flex items-center space-x-3">
-            {isLoggedIn ? (
+            {user ? (
               <div className="flex items-center space-x-4">
                 <Link to="/student-dashboard" className="text-gray-700 dark:text-gray-200 hover:text-eduBlue-500 dark:hover:text-eduBlue-400">
                   Dashboard
@@ -198,18 +206,26 @@ const Navbar = () => {
                 <div className="relative group">
                   <Avatar className="cursor-pointer h-8 w-8">
                     <AvatarImage src="/placeholder.svg" />
-                    <AvatarFallback className="bg-eduBlue-100 text-eduBlue-800">JD</AvatarFallback>
+                    <AvatarFallback className="bg-eduBlue-100 text-eduBlue-800">
+                      {user.name ? user.name.charAt(0).toUpperCase() : user.email?.charAt(0).toUpperCase()}
+                    </AvatarFallback>
                   </Avatar>
                   <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 border dark:border-gray-700">
                     <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Profile</Link>
                     <Link to="/settings" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Settings</Link>
-                    <button onClick={() => setIsLoggedIn(false)} className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Logout</button>
+                    <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Logout</button>
                   </div>
                 </div>
               </div>
             ) : (
               <div className="flex items-center space-x-3">
-                <Button variant="outline" onClick={() => setIsLoggedIn(true)} className="text-eduBlue-500 border-eduBlue-500 hover:bg-eduBlue-50">Login</Button>
+                <Button 
+                  variant="outline" 
+                  onClick={() => navigate('/login')} 
+                  className="text-eduBlue-500 border-eduBlue-500 hover:bg-eduBlue-50"
+                >
+                  Login
+                </Button>
                 <Button onClick={handleRegister} className="bg-eduOrange-500 hover:bg-eduOrange-600 text-white">Register</Button>
               </div>
             )}
@@ -276,7 +292,7 @@ const Navbar = () => {
           </a>
           
           <div className="mt-4 px-4 py-2 border-t border-gray-200 dark:border-gray-700">
-            {isLoggedIn ? (
+            {user ? (
               <div className="space-y-2">
                 <Link 
                   to="/student-dashboard" 
@@ -293,7 +309,7 @@ const Navbar = () => {
                   Profile
                 </Link>
                 <button 
-                  onClick={() => {setIsLoggedIn(false); toggleMenu();}}
+                  onClick={() => {handleLogout(); toggleMenu();}}
                   className="block py-2 text-base font-medium text-red-500 hover:text-red-600 w-full text-left"
                 >
                   Logout
@@ -304,7 +320,7 @@ const Navbar = () => {
                 <Button 
                   variant="outline" 
                   className="w-full justify-center text-eduBlue-500 border-eduBlue-500 hover:bg-eduBlue-50" 
-                  onClick={() => {setIsLoggedIn(true); toggleMenu();}}
+                  onClick={() => {navigate('/login'); toggleMenu();}}
                 >
                   Login
                 </Button>
