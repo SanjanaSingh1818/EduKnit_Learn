@@ -119,14 +119,14 @@ const reducer = (state: State, action: Action): State => {
   }
 }
 
-const listeners: React.Dispatch<Action>[] = []
+const listeners: Array<(state: State) => void> = []
 
 let memoryState: State = { toasts: [] }
 
 function dispatch(action: Action) {
   memoryState = reducer(memoryState, action)
   listeners.forEach((listener) => {
-    listener(action)
+    listener(memoryState)
   })
 }
 
@@ -172,7 +172,7 @@ function useToast() {
         listeners.splice(index, 1)
       }
     }
-  }, [state])
+  }, [])
 
   return {
     ...state,
