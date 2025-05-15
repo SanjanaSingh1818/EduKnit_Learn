@@ -22,6 +22,8 @@ interface AuthContextType {
   signOut: () => Promise<void>;
   error: string | null;
   resendVerificationEmail: (email: string) => Promise<void>;
+  isEmailVerified: boolean;
+  checkEmailVerification: (email: string) => Promise<boolean>;
 }
 
 // Create the context with a default value
@@ -53,8 +55,32 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  // Check if an email is verified
+  const checkEmailVerification = async (email: string): Promise<boolean> => {
+    try {
+      const { data, error } = await supabase.auth.getUser();
+      
+      if (error) {
+        console.error('Error checking email verification:', error);
+        return false;
+      }
+      
+      if (data?.user && data.user.email === email) {
+        const isVerified = data.user.email_confirmed_at !== null;
+        setIsEmailVerified(isVerified);
+        return isVerified;
+      }
+      
+      return false;
+    } catch (error) {
+      console.error('Error checking verification status:', error);
+      return false;
+    }
+  };
 
   // Set up authentication state listener
   useEffect(() => {
@@ -64,20 +90,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       try {
         // First set up the auth state listener
         const { data: { subscription } } = supabase.auth.onAuthStateChange(
-          (event, currentSession) => {
+          async (event, currentSession) => {
             setSession(currentSession);
             setUser(extractUserData(currentSession?.user || null));
+            
+            if (currentSession?.user) {
+              setIsEmailVerified(currentSession.user.email_confirmed_at !== null);
+            }
 
             if (event === 'SIGNED_IN') {
               toast({
                 title: "Login Successful!",
                 description: "Redirecting to your dashboard... Let's make today count!",
               });
+              
+              // Navigate to dashboard after login
+              setTimeout(() => navigate('/student-dashboard'), 1000);
             } else if (event === 'SIGNED_OUT') {
               toast({
                 title: "Logged out",
                 description: "You have been logged out successfully.",
               });
+              navigate('/login');
             } else if (event === 'USER_UPDATED') {
               toast({
                 title: "Profile Updated",
@@ -93,6 +127,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const { data } = await supabase.auth.getSession();
         setSession(data.session);
         setUser(extractUserData(data.session?.user || null));
+        
+        if (data.session?.user) {
+          setIsEmailVerified(data.session.user.email_confirmed_at !== null);
+        }
+        
         setLoading(false);
 
         return () => {
@@ -111,12 +150,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const signIn = async (email: string, password: string) => {
     try {
       setError(null);
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
-      if (error) throw error;
+      if (error) {
+        if (error.message.includes('Email not confirmed')) {
+          setError('Email not confirmed');
+          throw new Error('Email not confirmed');
+        } else {
+          console.error('Sign in error:', error);
+          setError(error.message || 'An error occurred during sign in');
+          throw error;
+        }
+      }
+
+      // If we get here, login was successful
+      if (data.user) {
+        setIsEmailVerified(data.user.email_confirmed_at !== null);
+      }
+      
+      return data;
     } catch (error: any) {
       console.error('Sign in error:', error);
       setError(error.message || 'An error occurred during sign in');
@@ -128,21 +183,32 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const signUp = async (email: string, password: string, name?: string) => {
     try {
       setError(null);
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
           data: {
             name,
           },
-          emailRedirectTo: window.location.origin + '/verification',
+          emailRedirectTo: `${window.location.origin}/verification`,
         },
       });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Sign up error:', error);
+        setError(error.message || 'An error occurred during sign up');
+        throw error;
+      }
       
       // Store email in localStorage for verification page
       localStorage.setItem('pendingVerificationEmail', email);
+      
+      toast({
+        title: "Sign Up Successful",
+        description: "Please check your email for verification instructions.",
+      });
+      
+      navigate('/verification');
     } catch (error: any) {
       console.error('Sign up error:', error);
       setError(error.message || 'An error occurred during sign up');
@@ -158,7 +224,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         type: 'signup',
         email: email,
         options: {
-          emailRedirectTo: window.location.origin + '/verification',
+          emailRedirectTo: `${window.location.origin}/verification`,
         }
       });
       
@@ -185,6 +251,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
+      
+      setUser(null);
+      setSession(null);
     } catch (error: any) {
       console.error('Sign out error:', error);
       setError(error.message || 'An error occurred during sign out');
@@ -202,7 +271,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       signUp, 
       signOut, 
       error,
-      resendVerificationEmail
+      resendVerificationEmail,
+      isEmailVerified,
+      checkEmailVerification
     }}>
       {children}
     </AuthContext.Provider>

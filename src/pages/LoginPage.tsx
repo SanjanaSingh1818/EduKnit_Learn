@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -34,9 +34,17 @@ const LoginPage = () => {
   const [needsVerification, setNeedsVerification] = useState(false);
   const [verificationEmail, setVerificationEmail] = useState('');
   const [isResendingVerification, setIsResendingVerification] = useState(false);
+  const [loginAttempted, setLoginAttempted] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { signIn, resendVerificationEmail } = useAuth();
+  const { signIn, resendVerificationEmail, user, session } = useAuth();
+  
+  // Check if user is already logged in
+  useEffect(() => {
+    if (user && session && !loginAttempted) {
+      navigate('/student-dashboard');
+    }
+  }, [user, session, navigate, loginAttempted]);
   
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -50,23 +58,17 @@ const LoginPage = () => {
   const onSubmit = async (data: LoginFormValues) => {
     try {
       setIsSubmitting(true);
+      setLoginAttempted(true);
       await signIn(data.email, data.password);
-      
-      toast({
-        title: "Login Successful!",
-        description: "Redirecting to your dashboard... Let's make today count!",
-      });
       
       // Save email in local storage in case they need verification
       localStorage.setItem('pendingVerificationEmail', data.email);
       
-      // Navigate to dashboard after login
-      setTimeout(() => navigate('/student-dashboard'), 1000);
     } catch (error: any) {
       console.error('Login error:', error);
       
       // Check if the error is about email not being confirmed
-      if (error.message === 'Email not confirmed') {
+      if (error.message && (error.message === 'Email not confirmed' || error.message.includes('Email not confirmed'))) {
         setNeedsVerification(true);
         setVerificationEmail(data.email);
         toast({
