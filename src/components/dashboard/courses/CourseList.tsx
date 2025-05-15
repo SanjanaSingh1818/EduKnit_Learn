@@ -5,6 +5,7 @@ import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { BookOpen, Video } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface Course {
   id: number;
@@ -17,7 +18,7 @@ interface Course {
   lastAccessed: string;
   nextSessionDate?: string;
   zoomLink?: string;
-  path?: string;
+  path?: string; // Added path property for direct navigation
 }
 
 interface CourseListProps {
@@ -47,9 +48,14 @@ const formatDate = (dateString: string) => {
 };
 
 const CourseList: React.FC<CourseListProps> = ({ courses, onContinueLearning }) => {
-  const handleContinueLearning = (courseId: number) => {
-    if (onContinueLearning) {
-      onContinueLearning(courseId);
+  const navigate = useNavigate();
+  
+  const handleContinueLearning = (course: Course) => {
+    // If there's a custom path defined for the course, navigate to it
+    if (course.path) {
+      navigate(course.path);
+    } else if (onContinueLearning) {
+      onContinueLearning(course.id);
     }
   };
   
@@ -112,7 +118,7 @@ const CourseList: React.FC<CourseListProps> = ({ courses, onContinueLearning }) 
               <CardFooter className="flex justify-between gap-2 pt-0">
                 <Button 
                   className="flex-1 bg-eduBlue-500 hover:bg-eduBlue-600"
-                  onClick={() => handleContinueLearning(course.id)}
+                  onClick={() => handleContinueLearning(course)}
                 >
                   <BookOpen className="mr-2 h-4 w-4" /> Continue Learning
                 </Button>
