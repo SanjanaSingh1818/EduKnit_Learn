@@ -21,40 +21,86 @@ const StudentDashboardPage = () => {
   const enrolledCourses = [
     {
       id: 1,
-      title: 'Introduction to Web Development',
-      progress: 65,
-      instructor: 'Dr. Sarah Johnson',
-      nextLesson: 'CSS Flexbox Layout',
-      image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80',
-      status: 'In Progress',
-      lastAccessed: '2 days ago',
-      nextSessionDate: '2025-04-18T15:30:00',
-      zoomLink: 'https://zoom.us/j/123456789'
-    },
-    {
-      id: 2,
-      title: 'Data Science Fundamentals',
-      progress: 32,
-      instructor: 'Prof. Michael Chen',
-      nextLesson: 'Statistical Analysis with Python',
-      image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80',
-      status: 'In Progress',
-      lastAccessed: '5 days ago',
-      nextSessionDate: '2025-04-20T10:00:00',
-      zoomLink: 'https://zoom.us/j/987654321'
-    },
-    {
-      id: 3,
       title: 'Communication Skills',
-      progress: 89,
+      progress: 65,
       instructor: 'Jessica Williams, MBA',
       nextLesson: 'Advanced Presentation Techniques',
       image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80',
-      status: 'Almost Complete',
+      status: 'In Progress',
+      lastAccessed: '2 days ago',
+      nextSessionDate: '2025-04-18T15:30:00',
+      zoomLink: 'https://zoom.us/j/123456789',
+      path: '/programs/communication-skills'
+    },
+    {
+      id: 2,
+      title: 'Digital Marketing',
+      progress: 32,
+      instructor: 'Prof. Michael Chen',
+      nextLesson: 'Social Media Strategy',
+      image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80',
+      status: 'In Progress',
+      lastAccessed: '5 days ago',
+      nextSessionDate: '2025-04-20T10:00:00',
+      zoomLink: 'https://zoom.us/j/987654321',
+      path: '/programs/digital-marketing'
+    },
+    {
+      id: 3,
+      title: 'Basics of AI',
+      progress: 25,
+      instructor: 'Dr. Aisha Johnson',
+      nextLesson: 'Machine Learning Concepts',
+      image: 'https://images.unsplash.com/photo-1583508915901-b5f84c1dcde1?auto=format&fit=crop&w=600&q=80',
+      status: 'In Progress',
       lastAccessed: 'Today',
       nextSessionDate: '2025-04-19T14:00:00',
       zoomLink: 'https://zoom.us/j/567891234',
-      path: '/programs/communication-skills'
+      path: '/programs/basics-of-ai'
+    },
+    {
+      id: 4,
+      title: 'AI Prompt Crafting',
+      progress: 45,
+      instructor: 'Dr. Mark Thompson',
+      nextLesson: 'Advanced Prompt Patterns',
+      image: 'https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?auto=format&fit=crop&w=600&q=80',
+      status: 'In Progress',
+      lastAccessed: '3 days ago',
+      path: '/programs/ai-prompt-crafting'
+    },
+    {
+      id: 5,
+      title: 'Data Analytics',
+      progress: 70,
+      instructor: 'Sarah Chen, PhD',
+      nextLesson: 'Dashboard Creation',
+      image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=600&q=80',
+      status: 'Almost Complete',
+      lastAccessed: 'Yesterday',
+      path: '/programs/data-analytics'
+    },
+    {
+      id: 6,
+      title: 'BioSkills',
+      progress: 15,
+      instructor: 'Dr. James Morrison',
+      nextLesson: 'Applied Cellular Biology',
+      image: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=600&q=80',
+      status: 'In Progress',
+      lastAccessed: 'Last week',
+      path: '/programs/bioskills'
+    },
+    {
+      id: 7,
+      title: 'Decision-Making Skills',
+      progress: 50,
+      instructor: 'Prof. Emma Rodriguez',
+      nextLesson: 'Cost-Benefit Analysis',
+      image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80',
+      status: 'In Progress',
+      lastAccessed: '4 days ago',
+      path: '/programs/decision-making'
     }
   ];
 
@@ -191,6 +237,7 @@ const StudentDashboardPage = () => {
                 <Button 
                   variant="ghost" 
                   className="w-full border border-dashed border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400"
+                  onClick={() => navigate('/programs')}
                 >
                   Explore More Courses
                 </Button>
@@ -302,7 +349,11 @@ const StudentDashboardPage = () => {
               </CardHeader>
               <CardContent className="pb-2">
                 <div className="grid grid-cols-2 gap-2">
-                  <Button variant="outline" className="justify-start">
+                  <Button 
+                    variant="outline" 
+                    className="justify-start"
+                    onClick={() => navigate('/programs')}
+                  >
                     <Book className="mr-2 h-4 w-4" /> Course Catalog
                   </Button>
                   <Button variant="outline" className="justify-start">
