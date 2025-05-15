@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
@@ -18,10 +17,12 @@ interface Course {
   lastAccessed: string;
   nextSessionDate?: string;
   zoomLink?: string;
+  path?: string;
 }
 
 interface CourseListProps {
   courses: Course[];
+  onContinueLearning?: (courseId: number) => void;
 }
 
 const renderStatusBadge = (status: string) => {
@@ -45,11 +46,11 @@ const formatDate = (dateString: string) => {
   });
 };
 
-const CourseList: React.FC<CourseListProps> = ({ courses }) => {
-  const navigate = useNavigate();
-  
+const CourseList: React.FC<CourseListProps> = ({ courses, onContinueLearning }) => {
   const handleContinueLearning = (courseId: number) => {
-    navigate(`/courses/${courseId}`);
+    if (onContinueLearning) {
+      onContinueLearning(courseId);
+    }
   };
   
   return (

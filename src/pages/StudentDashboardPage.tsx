@@ -1,5 +1,5 @@
-
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import DashboardLayout from '@/components/dashboard/DashboardLayout';
 import DashboardOverviewCards from '@/components/dashboard/overview/DashboardOverviewCards';
 import CourseList from '@/components/dashboard/courses/CourseList';
@@ -15,6 +15,7 @@ import { Award, CalendarIcon, Clock } from 'lucide-react';
 
 const StudentDashboardPage = () => {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
+  const navigate = useNavigate();
   
   // Mock data for student dashboard
   const enrolledCourses = [
@@ -44,15 +45,16 @@ const StudentDashboardPage = () => {
     },
     {
       id: 3,
-      title: 'Digital Marketing Mastery',
+      title: 'Communication Skills',
       progress: 89,
       instructor: 'Jessica Williams, MBA',
-      nextLesson: 'Social Media Campaign Planning',
-      image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80',
+      nextLesson: 'Advanced Presentation Techniques',
+      image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80',
       status: 'Almost Complete',
       lastAccessed: 'Today',
       nextSessionDate: '2025-04-19T14:00:00',
-      zoomLink: 'https://zoom.us/j/567891234'
+      zoomLink: 'https://zoom.us/j/567891234',
+      path: '/programs/communication-skills'
     }
   ];
 
@@ -123,6 +125,15 @@ const StudentDashboardPage = () => {
     }
   ];
 
+  const handleContinueLearning = (courseId: number) => {
+    const course = enrolledCourses.find(c => c.id === courseId);
+    if (course && course.path) {
+      navigate(course.path);
+    } else {
+      navigate(`/courses/${courseId}`);
+    }
+  };
+
   const renderPriorityBadge = (priority: string) => {
     switch (priority) {
       case 'High':
@@ -173,7 +184,10 @@ const StudentDashboardPage = () => {
               </TabsList>
               
               <TabsContent value="my-courses" className="space-y-6">
-                <CourseList courses={enrolledCourses} />
+                <CourseList 
+                  courses={enrolledCourses} 
+                  onContinueLearning={handleContinueLearning}
+                />
                 <Button 
                   variant="ghost" 
                   className="w-full border border-dashed border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400"
