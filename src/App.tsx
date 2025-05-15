@@ -26,6 +26,8 @@ import AIPromptCraftingPage from "./pages/programs/AIPromptCraftingPage";
 import DataAnalyticsPage from "./pages/programs/DataAnalyticsPage";
 import BioSkillsPage from "./pages/programs/BioSkillsPage";
 import DecisionMakingPage from "./pages/programs/DecisionMakingPage";
+import BlogPage from "./pages/BlogPage";
+import BlogPostDetail from "./components/blog/BlogPostDetail";
 
 const queryClient = new QueryClient();
 
@@ -50,6 +52,8 @@ const App = () => (
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/verify" element={<VerificationPage />} />
             <Route path="/support" element={<SupportPage />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:slug" element={<BlogPostDetail />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/programs/communication-skills" element={<CommunicationSkillsPage />} />
             <Route path="/programs/digital-marketing" element={<DigitalMarketingPage />} />
