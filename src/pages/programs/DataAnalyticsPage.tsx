@@ -1,11 +1,11 @@
 
 import React from 'react';
-import ProgramPageTemplate from '@/components/programs/ProgramPageTemplate';
+import ProgramPageTemplate4 from '@/components/programs/ProgramPageTemplate4';
 import { Database } from 'lucide-react';
 
 const DataAnalyticsPage = () => {
   return (
-    <ProgramPageTemplate
+    <ProgramPageTemplate4
       icon={<Database className="h-8 w-8" />}
       iconBgClass="bg-eduBlue-100"
       iconTextClass="text-eduBlue-600"

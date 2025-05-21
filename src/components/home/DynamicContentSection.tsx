@@ -12,7 +12,7 @@ import { motion } from "framer-motion";
 
 const DynamicContentSection = () => {
   return (
-    <section className="section-padding bg-white dark:bg-gray-900">
+    <section className="section-padding bg-blue-200 dark:bg-gray-900">
       <div className="edu-container">
         <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Learn Through Dynamic Content</h2>
         
@@ -62,7 +62,7 @@ const DynamicContentSection = () => {
           </div>
         </div>
 
-        {/* Image Carousel */}
+        {/* Image Carousel
         <div className="mb-12">
           <h3 className="text-2xl font-semibold mb-4">Our Campus Life</h3>
           <Carousel className="w-full max-w-5xl mx-auto">
@@ -90,7 +90,7 @@ const DynamicContentSection = () => {
             <CarouselPrevious />
             <CarouselNext />
           </Carousel>
-        </div>
+        </div> */}
 
         {/* Interactive Boxes */}
         <div>
@@ -104,7 +104,7 @@ const DynamicContentSection = () => {
             ].map((resource, index) => (
               <Card 
                 key={index} 
-                className="hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
+                className="hover:bg-[#f57920] hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
               >
                 <CardContent className="p-6 text-center">
                   <h4 className="font-bold text-xl mb-2">{resource.title}</h4>

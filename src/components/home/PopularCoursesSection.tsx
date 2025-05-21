@@ -4,112 +4,136 @@ import SectionHeader from '../ui/SectionHeader';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardFooter } from '../ui/card';
 import { Code, Database, Palette, ChartBar, Globe, Lightbulb, MessageSquare, Briefcase } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const programs = [
   {
-    title: "Web Development Bootcamp",
-    description: "Master HTML, CSS, JavaScript, React, and Node.js to build modern, responsive web applications from scratch.",
+    title: "Communication Skills",
+    description: "Speak smart. Think sharp. Lead with confidence.",
     level: "Beginner to Advanced",
     duration: "12 weeks",
     icon: Code,
-    color: "eduBlue"
+    color: "eduBlue",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAKS9LMzYTJSJuOlbdzDMtaG9mh6j8VDwcTA&s",
+    path: "/programs/communication-skills"
   },
+ 
   {
-    title: "Data Science Essentials",
-    description: "Learn Python, statistics, machine learning, and data visualization to analyze complex datasets and extract valuable insights.",
-    level: "Intermediate",
-    duration: "16 weeks",
-    icon: Database,
-    color: "eduOrange"
-  },
-  {
-    title: "UI/UX Design Fundamentals",
-    description: "Develop your design thinking, wireframing, prototyping, and user testing skills to create intuitive, beautiful interfaces.",
+    title: "Basics of AI",
+    description: "AI is not just the future — it's your future.",
     level: "Beginner",
     duration: "8 weeks",
     icon: Palette,
-    color: "eduBlue"
+    color: "eduBlue",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAKS9LMzYTJSJuOlbdzDMtaG9mh6j8VDwcTA&s",
+    path: "/programs/basics-of-ai"
   },
+  
   {
-    title: "Business Analytics",
-    description: "Learn to use data analytics tools like Excel, SQL, Tableau, and Power BI to drive business decisions and strategy.",
-    level: "Beginner to Intermediate",
-    duration: "10 weeks",
-    icon: ChartBar,
-    color: "eduOrange"
-  },
-  {
-    title: "Digital Marketing Mastery",
-    description: "Explore SEO, social media marketing, content strategy, email campaigns, and analytics to grow online presence.",
+    title: "Data Analytics",
+    description: "Make decisions like a CEO — with data.",
     level: "All Levels",
     duration: "8 weeks",
     icon: Globe,
-    color: "eduBlue"
+    color: "eduBlue",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAKS9LMzYTJSJuOlbdzDMtaG9mh6j8VDwcTA&s",
+    path: "/programs/data-analytics"
   },
+  
   {
-    title: "Product Management",
-    description: "Develop skills in market research, product strategy, roadmapping, and stakeholder management for successful product launches.",
-    level: "Intermediate",
-    duration: "12 weeks",
-    icon: Lightbulb,
-    color: "eduOrange"
-  },
-  {
-    title: "Communication Skills",
-    description: "Enhance your public speaking, presentation, writing, and interpersonal communication for professional success.",
+    title: "Decision-Making Skills",
+    description: "Learn how top leaders think.",
     level: "All Levels",
     duration: "6 weeks",
     icon: MessageSquare,
-    color: "eduBlue"
-  },
-  {
-    title: "Project Management Professional",
-    description: "Prepare for PMP certification while mastering project planning, execution, monitoring, and team leadership.",
-    level: "Advanced",
-    duration: "14 weeks",
-    icon: Briefcase,
-    color: "eduOrange"
+    color: "eduBlue",
+    image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAKS9LMzYTJSJuOlbdzDMtaG9mh6j8VDwcTA&s",
+    path: "/programs/decision-making"
   }
+ 
 ];
 
 const PopularCoursesSection = () => {
   return (
-    <section className="section-padding bg-white dark:bg-gray-900">
+    <section className="section-padding bg-blue-200 dark:bg-gray-900">
       <div className="edu-container">
-        <SectionHeader 
-          title="Explore Our Programs" 
-          subtitle="Discover courses designed to help you achieve your career goals"
-        />
+        <div className="edu-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <div className="text-center">
+    <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0e2445] mb-4">
+     Explore Our Programs
+    </h2>
+    <div className="w-20 h-1 bg-[#f57920] mx-auto rounded-full mb-6"></div>
+    <p className="max-w-2xl mx-auto text-base sm:text-lg text-gray-700">
+      Discover courses <span className="text-[#f57920] font-semibold">designed to help you achieve</span> your career goals.
+    </p>
+  </div>
+</div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
-          {programs.map((program, index) => (
-            <Card key={index} className="overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300 flex flex-col h-full">
-              <div className={`h-2 ${program.color === "eduBlue" ? "bg-eduBlue-500" : "bg-eduOrange-500"}`}></div>
-              <CardContent className="p-6 flex-grow">
-                <div className="flex items-center mb-4">
-                  <div className={`p-2 rounded-lg mr-3 ${program.color === "eduBlue" ? "bg-eduBlue-100 text-eduBlue-600 dark:bg-eduBlue-900 dark:text-eduBlue-300" : "bg-eduOrange-100 text-eduOrange-600 dark:bg-eduOrange-900 dark:text-eduOrange-300"}`}>
-                    {React.createElement(program.icon, { className: "h-5 w-5" })}
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{program.title}</h3>
-                </div>
-                <p className="text-gray-600 dark:text-gray-300 mb-4">{program.description}</p>
-                <div className="flex justify-between items-center text-sm text-gray-500 dark:text-gray-400">
-                  <span>{program.level}</span>
-                  <span>{program.duration}</span>
-                </div>
-              </CardContent>
-              <CardFooter className="p-6 pt-0 border-t border-gray-100 dark:border-gray-800">
-                <Button className="w-full bg-eduBlue-500 hover:bg-eduBlue-600 text-white">Learn More</Button>
-              </CardFooter>
-            </Card>
-          ))}
-        </div>
+
+
+   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 p-4"> 
+  {programs.map((program, index) => (
+    <div
+  key={index}
+  style={{
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: '60px',
+    borderBottomLeftRadius: '60px',
+    borderBottomRightRadius: 0,
+  }}
+  className={`
+    group overflow-hidden border-2 transition-all duration-300 flex flex-col justify-between h-full
+    ${program.color === "eduBlue" ? "border-[#0e2445]" : "border-[#f57920]"}
+    hover:border-[#0e2445] hover:bg-[#f57920]
+  `}
+>
+  {/* Top part with image and content */}
+  <div className="relative h-48 overflow-hidden rounded-t-xl">
+    {/* Image */}
+    <img
+  src={program.image}
+  alt={program.title}
+  className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
+/>
+
+    {/* Title + Description content on hover */}
+    <div className="absolute inset-0 bg-white bg-opacity-90 p-6 flex flex-col justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 text-[#0e2445] rounded-t-xl">
+      <h3 className="text-xl font-bold mb-2">{program.title}</h3>
+      <p className="text-sm">{program.description}</p>
+    </div>
+  </div>
+
+  {/* Bottom part with level, duration, button */}
+  <div className="bg-[#2d2740] p-6 text-white space-y-3 rounded-b-xl group-hover:bg-[#f57920] transition-colors duration-300">
+    <div className="flex justify-between text-sm">
+      <p className="text-[#fca76d] font-medium">Level: {program.level}</p>
+      <p>Duration: {program.duration}</p>
+    </div>
+
+    <button className="w-full bg-[#0e2445] text-white group-hover:bg-white group-hover:text-[#f57920] font-semibold py-2 px-4 rounded-md transition-colors duration-300">
+    <Link to={program.path || "#"}>
+      Learn More
+      </Link>
+    </button>
+  </div>
+</div>
+
+
+  ))}
+</div>
+
+
         
-        <div className="mt-12 text-center">
-          <Button className="bg-eduOrange-500 hover:bg-eduOrange-600 text-white px-8 py-6 text-lg">
-            View All Programs
-          </Button>
-        </div>
+       <div className="mt-12 text-center">
+  <Button
+    className="bg-eduOrange-500 hover:bg-eduOrange-600 text-white px-8 py-6 text-lg"
+    asChild
+  >
+    <Link to="/programs">
+      Find the right program for you
+    </Link>
+  </Button>
+</div>
       </div>
     </section>
   );

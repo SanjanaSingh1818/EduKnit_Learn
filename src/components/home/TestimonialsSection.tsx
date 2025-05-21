@@ -1,62 +1,65 @@
-
 import React from 'react';
-import SectionHeader from '../ui/SectionHeader';
-import TestimonialCard from '../ui/TestimonialCard';
+import { motion } from 'framer-motion';
+import { Briefcase, Code, PieChart, Mic, TrendingUp } from 'lucide-react';
 
-const testimonials = [
+const careerOpportunities = [
   {
-    name: "Priya Sharma",
-    role: "Software Developer",
-    company: "TechSolutions India",
-    content: "The Web Development Bootcamp transformed my career. I went from knowing basic HTML to building full-stack applications in just 12 weeks. The instructors were incredibly supportive and the community is amazing.",
-    rating: 5,
-    program: "Web Development Bootcamp",
-    image: "https://images.unsplash.com/photo-1534751516642-a1af1ef26a56?q=80&w=200&h=200&auto=format&fit=crop"
+    title: "Software Developer",
+    description: "Build and maintain scalable web applications using modern tech stacks.",
+    icon: <Code className="h-10 w-10 text-eduOrange-500" />,
   },
   {
-    name: "Rajesh Patel",
-    role: "Marketing Manager",
-    company: "Global Brands Ltd",
-    content: "EduKnit's Digital Marketing course provided practical knowledge I could immediately apply to my job. Within two months of completing the program, I was able to increase our company's online engagement by 45%.",
-    rating: 5,
-    program: "Digital Marketing Fundamentals",
-    image: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=200&h=200&auto=format&fit=crop"
+    title: "Data Analyst",
+    description: "Turn raw data into actionable insights and compelling dashboards.",
+    icon: <PieChart className="h-10 w-10 text-eduOrange-500" />,
   },
   {
-    name: "Anika Gupta",
-    role: "Project Manager",
-    content: "The Communication Skills program helped me overcome my fear of public speaking. Now I confidently lead team meetings and client presentations. This course was truly life-changing for my professional growth.",
-    rating: 4,
-    program: "Public Speaking Mastery",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&h=200&auto=format&fit=crop"
+    title: "Digital Marketer",
+    description: "Plan, execute, and optimize digital campaigns across multiple platforms.",
+    icon: <TrendingUp className="h-10 w-10 text-eduOrange-500" />,
   },
   {
-    name: "Vikram Singh",
-    role: "Data Analyst",
-    company: "FinTech Solutions",
-    content: "As someone transitioning careers, the Data Science Essentials course gave me exactly what I needed. The curriculum was comprehensive and the hands-on projects prepared me for real-world challenges.",
-    rating: 5,
-    program: "Data Science Essentials",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=200&h=200&auto=format&fit=crop"
-  }
+    title: "Public Speaker",
+    description: "Master stage presence and confidently deliver impactful messages.",
+    icon: <Mic className="h-10 w-10 text-eduOrange-500" />,
+  },
+  {
+    title: "Project Manager",
+    description: "Lead cross-functional teams and deliver projects on time and within scope.",
+    icon: <Briefcase className="h-10 w-10 text-eduOrange-500" />,
+  },
 ];
 
 const TestimonialsSection = () => {
   return (
-    <section className="section-padding bg-gradient-to-br from-eduBlue-50 to-eduBlue-100 dark:from-gray-800 dark:to-gray-900">
-      <div className="edu-container">
-        <SectionHeader 
-          title="Student Success Stories" 
-          subtitle="Hear from our graduates who have transformed their careers with EduKnit"
-          titleClassName="text-eduBlue-800 dark:text-white"
-        />
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {testimonials.map((testimonial, index) => (
-            <TestimonialCard 
+    <section className="section-padding bg-gradient-to-br from-gray-100 to-white dark:from-gray-800 dark:to-gray-900">
+      <div className="edu-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0e2445] mb-4">
+            Career Opportunities
+          </h2>
+          <div className="w-20 h-1 bg-[#f57920] mx-auto rounded-full mb-6"></div>
+          <p className="max-w-2xl mx-auto text-base sm:text-lg text-gray-700">
+            Discover the exciting career paths our programs can help you achieve.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {careerOpportunities.map((career, index) => (
+            <motion.div
               key={index}
-              {...testimonial}
-            />
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: 'spring', stiffness: 300 }}
+              className="group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300"
+            >
+              <div className="mb-4">{career.icon}</div>
+              <h3 className="text-xl font-semibold text-[#0e2445] dark:text-white group-hover:text-eduOrange-500 mb-2">
+                {career.title}
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">
+                {career.description}
+              </p>
+            </motion.div>
           ))}
         </div>
       </div>

@@ -87,9 +87,9 @@ const ProgramPageTemplate: React.FC<ProgramPageProps> = ({
       <div className="w-full lg:w-1/2">
         <div className="bg-white rounded-2xl p-8 shadow-xl">
           <p className="uppercase text-sm font-semibold text-gray-500 mb-2">Certificate Program</p>
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">Communication Skills</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-4">Decision-Making Skills</h1>
           <p className="text-lg text-gray-700 mb-6">
-            Speak with confidence! Build communication skills through group discussions, debates, presentations, and real practice with peers and coaches — made for Class 11th & 12th students.
+            Transform your ideas into powerful messages that move people.
           </p>
 
           <div className="flex items-center gap-6 text-sm text-gray-600 mb-6">
@@ -185,21 +185,13 @@ const ProgramPageTemplate: React.FC<ProgramPageProps> = ({
   <div className="flex flex-col lg:flex-row gap-8 items-start bg-blue-100">
     
     {/* Left: Text Content */}
-    <div className="flex-1 space-y-6 max-w-3xl mb-8">
-  <ul className="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-300">
-    <li>Practical communication training with real interactions</li>
-    <li>Group discussions, debates, and live presentations</li>
-    <li>Build leadership and speaking confidence early</li>
-    <li>Prepare for interviews, competitions, and career opportunities</li>
-  </ul>
-
-  {overview.map((paragraph, index) => (
-    <p key={index} className="text-gray-600 dark:text-gray-300">
-      {paragraph}
-    </p>
-  ))}
-</div>
-
+    <div className="flex-1 space-y-4 max-w-3xl mb-8">
+      {overview.map((paragraph, index) => (
+        <p key={index} className="text-gray-600 dark:text-gray-300">
+          {paragraph}
+        </p>
+      ))}
+    </div>
 
     {/* Right: Image */}
     <div className="flex-1 mb-8 lg:mb-0">
@@ -211,20 +203,19 @@ const ProgramPageTemplate: React.FC<ProgramPageProps> = ({
     </div>
   </div>
 
-  
-<h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-200">What You'll Learn</h2>
-<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 mb-8">
-  {curriculum.modules.slice(0, 6).map((module) => (
+                <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-200">What You'll Learn</h2>
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+  {curriculum.modules.slice(0, 3).map((module) => (
     <Card
       key={module.id}
-      className="border border-transparent hover:border-orange-500 hover:shadow-lg hover:scale-[1.02] transition duration-300 ease-in-out rounded-xl p-4"
+      className="border border-transparent hover:border-orange-500 hover:shadow-lg hover:scale-[1.02] transition duration-300 ease-in-out rounded-xl"
     >
       <CardContent className="p-6">
         <div className="flex items-start space-x-3">
           <CheckCircle className={`h-6 w-6 mt-1 ${iconTextClass} flex-shrink-0`} />
           <div>
-           <h3 className="text-lg font-semibold mb-2">{module.title}</h3>
-      <p className="text-gray-600 dark:text-gray-300">{module.description}</p>
+            <h3 className="font-semibold text-lg mb-2">{module.title}</h3>
+            <p className="text-gray-600 dark:text-gray-400">{module.description}</p>
           </div>
         </div>
       </CardContent>

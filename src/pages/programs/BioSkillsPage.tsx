@@ -1,11 +1,11 @@
 
 import React from 'react';
-import ProgramPageTemplate from '@/components/programs/ProgramPageTemplate';
+import ProgramPageTemplate5 from '@/components/programs/ProgramPageTemplate5';
 import { FlaskConical } from 'lucide-react';
 
 const BioSkillsPage = () => {
   return (
-    <ProgramPageTemplate
+    <ProgramPageTemplate5
       icon={<FlaskConical className="h-8 w-8" />}
       iconBgClass="bg-eduOrange-100"
       iconTextClass="text-eduOrange-600"

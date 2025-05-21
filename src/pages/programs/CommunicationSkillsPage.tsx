@@ -12,10 +12,13 @@ const CommunicationSkillsPage = () => {
       title="Communication Skills"
       tagline="Transform your ideas into powerful messages that move people."
       videoSrc="https://player.vimeo.com/external/377669055.hd.mp4?s=dc0d6e7e0b4486595c50073257e9514b86b56376"
+      
       overview={[
         "In today's interconnected world, effective communication is more than just speaking clearly—it's about connecting, persuading, and inspiring action. Our Communication Skills program builds the essential foundation you need for success in any field.",
         "Through practical exercises, real-world scenarios, and expert guidance, you'll develop the ability to communicate confidently across different contexts and platforms, from professional presentations to everyday interactions.",
         "Whether you're preparing for college interviews, future careers, or just want to express yourself more effectively, this program offers the tools and techniques to elevate your communication to the next level."
+        
+        
       ]}
       careerOutlook={{
         description: [
@@ -24,19 +27,21 @@ const CommunicationSkillsPage = () => {
         ],
         paths: [
           {
-            title: "Marketing & Public Relations",
-            description: "Create compelling campaigns and manage brand communication strategies."
+            title: " Academic and Career Boost",
+            description:  "Effective communication improves performance in exams, competitions, interviews, and internships."
+             
           },
           {
-            title: "Business Leadership",
-            description: "Lead teams effectively through clear direction and inspiring vision."
+            title: " Confidence Building",
+            description:  "Speak confidently in school events, debates, interviews, and future professional settings."
+            
           },
           {
-            title: "Human Resources",
-            description: "Facilitate workplace communication and resolve conflicts effectively."
+            title: "Life-long Impact",
+            description: "Strong communication skills are key to success in every career field, from business to science."
           },
           {
-            title: "Sales",
+            title: "Career",
             description: "Persuade potential clients and build lasting business relationships."
           }
         ]
@@ -46,20 +51,22 @@ const CommunicationSkillsPage = () => {
         modules: [
           {
             id: "module-1",
-            title: "Foundations of Effective Communication",
+            title: " Basics of Communication",
             description: "Master the core principles that make communication clear, compelling, and effective.",
+            
             lessons: [
               {
                 id: "lesson-1-1",
                 title: "Communication Models and Principles",
                 duration: "20 min",
-                type: "video"
+                type: "text"
+                
               },
               {
                 id: "lesson-1-2",
                 title: "Active Listening Techniques",
                 duration: "35 min",
-                type: "video"
+                type: "text"
               },
               {
                 id: "lesson-1-3",
@@ -71,20 +78,20 @@ const CommunicationSkillsPage = () => {
           },
           {
             id: "module-2",
-            title: "Written Communication",
+            title: " Public Speaking Essentials",
             description: "Learn to write clearly and persuasively across various formats and contexts.",
             lessons: [
               {
                 id: "lesson-2-1",
                 title: "Principles of Clear Writing",
                 duration: "25 min",
-                type: "video"
+                type: "text"
               },
               {
                 id: "lesson-2-2",
                 title: "Email and Professional Correspondence",
                 duration: "30 min",
-                type: "video"
+                type: "text"
               },
               {
                 id: "lesson-2-3",
@@ -96,52 +103,105 @@ const CommunicationSkillsPage = () => {
           },
           {
             id: "module-3",
-            title: "Public Speaking & Presentations",
+            title: "Group Discussions and Debates",
             description: "Build confidence and skills for speaking effectively to any audience.",
             lessons: [
               {
                 id: "lesson-3-1",
                 title: "Structuring Compelling Presentations",
                 duration: "30 min",
-                type: "video"
+                type: "text"
               },
               {
                 id: "lesson-3-2",
                 title: "Managing Speech Anxiety",
                 duration: "20 min",
-                type: "video"
+                type: "text"
               },
               {
                 id: "lesson-3-3",
                 title: "Voice, Body Language, and Delivery",
                 duration: "40 min",
-                type: "video"
+                type: "text"
               }
             ]
           },
           {
             id: "module-4",
-            title: "Digital Communication",
+            title: "Presentation Skills",
             description: "Navigate the unique challenges and opportunities of communicating in digital spaces.",
             lessons: [
               {
                 id: "lesson-4-1",
                 title: "Social Media Communication",
                 duration: "25 min",
-                type: "video"
+                type: "text"
               },
               {
                 id: "lesson-4-2",
                 title: "Virtual Meeting Best Practices",
                 duration: "30 min",
-                type: "video"
+                type: "text"
               },
               {
                 id: "lesson-4-3",
                 title: "Digital Communication Project",
                 duration: "60 min",
                 type: "quiz"
-              }
+              },
+              
+            ]
+          },
+          {
+            id: "module-5",
+            title: " Interview Skills Training",
+            description: "Navigate the unique challenges and opportunities of communicating in digital spaces.",
+            lessons: [
+              {
+                id: "lesson-4-1",
+                title: "Social Media Communication",
+                duration: "25 min",
+                type: "text"
+              },
+              {
+                id: "lesson-4-2",
+                title: "Virtual Meeting Best Practices",
+                duration: "30 min",
+                type: "text"
+              },
+              {
+                id: "lesson-4-3",
+                title: "Digital Communication Project",
+                duration: "60 min",
+                type: "quiz"
+              },
+              
+            ]
+          },
+        {
+            id: "module-6",
+            title: "Building Leadership Presence",
+            description: "Navigate the unique challenges and opportunities of communicating in digital spaces.",
+            lessons: [
+              {
+                id: "lesson-4-1",
+                title: "Social Media Communication",
+                duration: "25 min",
+                type: "text"
+              },
+              {
+                id: "lesson-4-2",
+                title: "Virtual Meeting Best Practices",
+                duration: "30 min",
+                type: "text"
+              },
+              {
+                id: "lesson-4-3",
+                title: "Digital Communication Project",
+                duration: "60 min",
+                type: "quiz"
+              },
+              
             ]
           }
         ]
@@ -153,43 +213,51 @@ const CommunicationSkillsPage = () => {
         ],
         features: [
           {
-            title: "Expert Feedback",
-            description: "Receive personalized guidance on your communication style from industry professionals."
+            title: "1-on-1 Mentorship",
+            description: " Get personal mentorship sessions to guide your learning."
           },
           {
-            title: "Live Practice Sessions",
-            description: "Participate in small-group sessions to practice and refine your skills in real time."
+            title: " Internship Support",
+            description: " Get connected with internship opportunities after course completion"
           },
           {
-            title: "24/7 Resource Access",
-            description: "Access our digital library of communication resources, templates, and examples anytime."
+            title: "Learning Community",
+            description: " Join a like-minded group of students and grow together."
           },
           {
-            title: "Peer Learning Community",
-            description: "Connect with fellow students to practice together and share insights."
+            title: " Weekly Assignment Review",
+            description: " Receive personalized feedback on your practical assignments"
           }
         ]
       }}
       faqs={[
         {
-          question: "How long does it take to complete this program?",
-          answer: "The program is designed to be completed in 4-6 weeks, with about 5-10 hours of learning per week. However, you can adjust the pace to fit your schedule, and you'll have access to the materials for 12 months."
+          question: " Can I manage this course with my school studies?",
+          answer: "Yes, the course is structured to be manageable with schoolwork."
         },
         {
-          question: "Do I need any prior experience to join this program?",
-          answer: "No prior experience is needed! This program is designed to be accessible to beginners while also offering value to those with some communication experience."
+          question: " Will I work on live projects?",
+          answer: " Yes, we offer opportunities to practice on real-life case studies and mini-projects."
         },
         {
-          question: "How will I practice the skills I learn?",
-          answer: "The program includes various practice opportunities, including interactive exercises, peer feedback sessions, recorded assignments, and live practice with instructors."
+          question: "Do I need a laptop?",
+          answer: "Having a laptop will be helpful, but not mandatory. Most tasks can also be managed through a mobile device."
         },
         {
-          question: "Will I receive a certificate upon completion?",
-          answer: "Yes, you'll receive a Certificate of Completion that you can share on your resume and LinkedIn profile to showcase your newly developed skills."
+          question: " I feel shy while speaking. Can I still join?",
+          answer: " Absolutely! This course is specially designed to build confidence step."
         },
         {
-          question: "Can I access the program on mobile devices?",
-          answer: "Yes, the program is fully accessible on mobile devices, allowing you to learn and practice on the go."
+          question: "Will I get live support?",
+          answer: ": Yes, you will get live support to unblock your doubts."
+        },
+         {
+          question: " Are there live practice sessions?",
+          answer: ": Yes, you will participate in group discussions, debates, presentations, and mock interviews.."
+        },
+         {
+          question: "Do I need any previous experience in public speaking?",
+          answer: ": Not at all. We start from basics and move to advanced levels."
         }
       ]}
     />

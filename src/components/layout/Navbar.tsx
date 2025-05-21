@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -5,26 +6,17 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Menu, X, ChevronDown, Home, Layout, Users, BookOpen, MessageCircle, Megaphone, Brain, Bot, Database, FlaskConical, Lightbulb } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import NavDropdownItem from '../navbar/NavDropdownItem';
-import { useAuth } from '@/contexts/AuthContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
-  const { user, signOut } = useAuth();
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
   const handleRegister = () => {
-    navigate('/register');
-  };
-
-  const handleLogout = async () => {
-    try {
-      await signOut();
-      navigate('/login');
-    } catch (error) {
-      console.error('Logout error:', error);
-    }
+    setIsLoggedIn(true);
+    navigate('/student-dashboard');
   };
 
   const navItems = [
@@ -64,7 +56,7 @@ const Navbar = () => {
     { 
       name: "Programs", 
       path: "/programs", 
-      dropdown: true,
+      dropdown: false,
       icon: BookOpen,
       dropdownItems: [
         { 
@@ -117,16 +109,20 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-white dark:bg-gray-900 sticky top-0 z-50 shadow-sm">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex items-center justify-between h-24">
-          <Link to="/" className="flex items-center">
-            <img 
-              src="/lovable-uploads/78cefeac-5939-4775-8dd3-310cb3f07524.png" 
-              alt="EduKnit Logo" 
-              className="h-10 w-auto"
-            />
-          </Link>
+    <nav className="bg-gray-200 dark:bg-gray-900 sticky top-0 z-50 shadow-sm">
+ 
+
+  <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    {/* Increased height to h-28 (7rem/112px) */}
+    <div className="flex items-center justify-between h-28">
+      <Link to="/" className="flex items-center">
+        <img 
+          src="/uploads/logo.png" 
+          alt="EduKnit Logo" 
+          className="h-16 w-auto"  // Increased logo size
+        />
+      </Link>
+
 
           <div className="hidden md:flex items-center space-x-2">
             {navItems.map((item) => (
@@ -198,7 +194,7 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:flex items-center space-x-3">
-            {user ? (
+            {isLoggedIn ? (
               <div className="flex items-center space-x-4">
                 <Link to="/student-dashboard" className="text-gray-700 dark:text-gray-200 hover:text-eduBlue-500 dark:hover:text-eduBlue-400">
                   Dashboard
@@ -206,26 +202,18 @@ const Navbar = () => {
                 <div className="relative group">
                   <Avatar className="cursor-pointer h-8 w-8">
                     <AvatarImage src="/placeholder.svg" />
-                    <AvatarFallback className="bg-eduBlue-100 text-eduBlue-800">
-                      {user.name ? user.name.charAt(0).toUpperCase() : user.email?.charAt(0).toUpperCase()}
-                    </AvatarFallback>
+                    <AvatarFallback className="bg-eduBlue-100 text-eduBlue-800">JD</AvatarFallback>
                   </Avatar>
                   <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 border dark:border-gray-700">
                     <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Profile</Link>
                     <Link to="/settings" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Settings</Link>
-                    <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Logout</button>
+                    <button onClick={() => setIsLoggedIn(false)} className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Logout</button>
                   </div>
                 </div>
               </div>
             ) : (
               <div className="flex items-center space-x-3">
-                <Button 
-                  variant="outline" 
-                  onClick={() => navigate('/login')} 
-                  className="text-eduBlue-500 border-eduBlue-500 hover:bg-eduBlue-50"
-                >
-                  Login
-                </Button>
+                <Button variant="outline" onClick={() => setIsLoggedIn(true)} className="text-eduBlue-500 border-eduBlue-500 hover:bg-eduBlue-50">Login</Button>
                 <Button onClick={handleRegister} className="bg-eduOrange-500 hover:bg-eduOrange-600 text-white">Register</Button>
               </div>
             )}
@@ -239,6 +227,7 @@ const Navbar = () => {
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
+            
           </div>
         </div>
       </div>
@@ -292,7 +281,7 @@ const Navbar = () => {
           </a>
           
           <div className="mt-4 px-4 py-2 border-t border-gray-200 dark:border-gray-700">
-            {user ? (
+            {isLoggedIn ? (
               <div className="space-y-2">
                 <Link 
                   to="/student-dashboard" 
@@ -309,7 +298,7 @@ const Navbar = () => {
                   Profile
                 </Link>
                 <button 
-                  onClick={() => {handleLogout(); toggleMenu();}}
+                  onClick={() => {setIsLoggedIn(false); toggleMenu();}}
                   className="block py-2 text-base font-medium text-red-500 hover:text-red-600 w-full text-left"
                 >
                   Logout
@@ -320,7 +309,7 @@ const Navbar = () => {
                 <Button 
                   variant="outline" 
                   className="w-full justify-center text-eduBlue-500 border-eduBlue-500 hover:bg-eduBlue-50" 
-                  onClick={() => {navigate('/login'); toggleMenu();}}
+                  onClick={() => {setIsLoggedIn(true); toggleMenu();}}
                 >
                   Login
                 </Button>
@@ -335,6 +324,10 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+     
+<div className="bg-gradient-to-r bg-eduOrange-500 bg-eduOrange-500 text-white text-center py-3 px-4 text-sm font-bold animate-pulse  mb-8">
+  🔥 Enroll Now - Special Discount for First 100 Students! 🔥
+</div>
     </nav>
   );
 };

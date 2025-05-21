@@ -119,9 +119,9 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ className }) => {
         <div className="p-4 border-b border-gray-200 dark:border-gray-800">
           <Link to="/" className="flex items-center gap-2">
             <img 
-              src="/lovable-uploads/78cefeac-5939-4775-8dd3-310cb3f07524.png" 
+              src="/uploads/logo.png" 
               alt="EduKnit Logo" 
-              className="h-8 w-auto"
+              className="h-10 w-auto"
             />
             <span className="font-bold text-xl text-gray-900 dark:text-white">EduKnit</span>
           </Link>

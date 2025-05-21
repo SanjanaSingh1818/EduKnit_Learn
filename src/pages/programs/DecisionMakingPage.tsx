@@ -1,11 +1,11 @@
 
 import React from 'react';
-import ProgramPageTemplate from '@/components/programs/ProgramPageTemplate';
+import ProgramPageTemplate6 from '@/components/programs/ProgramPageTemplate6';
 import { Lightbulb } from 'lucide-react';
 
 const DecisionMakingPage = () => {
   return (
-    <ProgramPageTemplate
+    <ProgramPageTemplate6
       icon={<Lightbulb className="h-8 w-8" />}
       iconBgClass="bg-eduBlue-100"
       iconTextClass="text-eduBlue-600"

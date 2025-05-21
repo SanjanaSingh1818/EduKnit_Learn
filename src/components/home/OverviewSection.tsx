@@ -6,12 +6,20 @@ import { Button } from '../ui/button';
 
 const OverviewSection = () => {
   return (
-    <section className="section-padding bg-white dark:bg-gray-900 py-16">
+    <section className="section-padding bg-gray-100 dark:bg-gray-900 py-16">
       <div className="edu-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader
-          title="Overview of EduKnit"
-          subtitle="Empowering students through accessible, quality education for career advancement"
-        />
+        <div className="edu-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <div className="text-center">
+    <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0e2445] relative inline-block mb-2">
+      Overview of EduKnit
+      <span className="block w-20 h-1 bg-[#f57920] mx-auto mt-2 rounded-full"></span>
+    </h2>
+    <p className="mt-2 max-w-2xl mx-auto text-base sm:text-lg text-gray-600">
+      Empowering students through <span className="text-[#f57920] font-semibold">accessible, quality education</span> for career advancement.
+    </p>
+  </div>
+</div>
+
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-10">
           <div className="space-y-6">

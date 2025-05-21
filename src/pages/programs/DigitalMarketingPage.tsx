@@ -1,11 +1,11 @@
 
 import React from 'react';
-import ProgramPageTemplate from '@/components/programs/ProgramPageTemplate';
+import ProgramPageTemplate1 from '@/components/programs/ProgramPageTemplate1';
 import { Megaphone } from 'lucide-react';
 
 const DigitalMarketingPage = () => {
   return (
-    <ProgramPageTemplate
+    <ProgramPageTemplate1
       icon={<Megaphone className="h-8 w-8" />}
       iconBgClass="bg-eduOrange-100"
       iconTextClass="text-eduOrange-600"

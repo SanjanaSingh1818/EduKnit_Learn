@@ -1,11 +1,11 @@
 
 import React from 'react';
-import ProgramPageTemplate from '@/components/programs/ProgramPageTemplate';
+import ProgramPageTemplate3 from '@/components/programs/ProgramPageTemplate3';
 import { Bot } from 'lucide-react';
 
 const AIPromptCraftingPage = () => {
   return (
-    <ProgramPageTemplate
+    <ProgramPageTemplate3
       icon={<Bot className="h-8 w-8" />}
       iconBgClass="bg-eduOrange-100"
       iconTextClass="text-eduOrange-600"

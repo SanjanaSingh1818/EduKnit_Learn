@@ -1,11 +1,11 @@
 
 import React from 'react';
-import ProgramPageTemplate from '@/components/programs/ProgramPageTemplate';
+import ProgramPageTemplate2 from '@/components/programs/ProgramPageTemplate2';
 import { Brain } from 'lucide-react';
 
 const BasicsOfAIPage = () => {
   return (
-    <ProgramPageTemplate
+    <ProgramPageTemplate2
       icon={<Brain className="h-8 w-8" />}
       iconBgClass="bg-eduBlue-100"
       iconTextClass="text-eduBlue-600"
